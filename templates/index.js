@@ -43,6 +43,7 @@ var home = {
     element: "div",
     value: 'hello',
     id: "home",
+	onclick: function(){console.log('over')},
     body:    {
         element:     "div",
         className:       "jFunisimo",
@@ -59,114 +60,24 @@ var home = {
             "className":   "ol list__todo",
             "text1":   {
                 "element": "li",
-                "value":   "Create template filling function"
+                "value":   "Create template filling function",
+	            onclick: function(){console.log(this)}
             },
             "text2":   {
                 "element": "li",
-                "value":   "create filling generator"
+                "value":   "create filling generator",
+	            onclick: function(){console.log('TEXTING 2 CLICK!')}
             }
         }
     }
 }
-//Creator(document.body,base);
-//Creator(JF.templates.base.template,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+Creator(document.body,home,home,home,home,home,home,home,home,home,home);

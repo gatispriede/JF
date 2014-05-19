@@ -151,7 +151,7 @@ Creator.prototype.element = function () {
             element.name = $object.id;
         }
         for($key in $object) {
-            if (typeof $object[$key] == 'string') {
+            if (typeof $object[$key] == 'string' || typeof $object[$key] == 'function') {
                 if($key == 'value'){
                     element['name'] = $object.element;
                     element['textContent'] = $object[$key];
@@ -162,14 +162,15 @@ Creator.prototype.element = function () {
                         delete $object[$key];
                 }
             }else if(typeof $object[$key] == 'object'){
-                JF.templates[this.id].elements[$key] = element;
-                    /*
-                    Apply Template Prototypes
-                     */
-                JF.templates[this.id].elements[$key].prototype = Template.prototype;
-                    Template.createEvents(JF.templates[this.id].elements[$key]);
+	            var elementName = $key;
                 var subElement = Creator.element($object[$key],$object,$iteration);
                     element.appendChild(subElement);
+	            JF.templates[this.id].elements[elementName] = subElement;
+	            /*
+	             Apply Template Prototypes
+	             */
+	            JF.templates[this.id].elements[elementName].prototype = Template.prototype;
+	            Template.createEvents(JF.templates[this.id].elements[elementName]);
                     delete $object[$key];
             }
         }
