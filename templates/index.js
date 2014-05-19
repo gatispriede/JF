@@ -1,3 +1,4 @@
+
 var hidden = {
     element: 'div',
     data: 'layers/hidden.html',
@@ -6,16 +7,6 @@ var hidden = {
     title: {
         element: 'h1',
         value: 'Hidden Layer'
-    }
-}
-var base = {
-    element: 'div',
-    data: 'layers/index.html',
-    type: 'text/html',
-    id: 'base',
-    title: {
-        element: 'h1',
-        value: 'index Layer'
     }
 }
 var fixed = {
@@ -36,6 +27,16 @@ var loader = {
     title: {
         element: 'h1',
         value: 'loader Layer'
+    }
+}
+var base = {
+    element: 'div',
+    data: 'layers/index.html',
+    type: 'text/html',
+    id: 'base',
+    title: {
+        element: 'h1',
+        value: 'index Layer'
     }
 }
 var home = {
@@ -68,6 +69,6 @@ var home = {
     }
 }
 Creator(document.body,base);
-Creator(JF.base.template,home);
+Creator(JF.templates.base.template,home);
 
 

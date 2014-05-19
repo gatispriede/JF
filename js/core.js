@@ -4,26 +4,17 @@
 var core = {
 	init: function () {
 		core.createJF ();
-		document.JF.status = 'Init';
-		core.createTemplateSystem.description = 'creates JF object in document element';
-		core.createTemplateSystem ();
-		core.createTemplateSystem.description = 'Creates functions needed for template creation, reads available templates from Template object';
+		JF.status = 'Init';
 		core.createGlobalFunctions ();
 		core.createGlobalFunctions.description = 'Creates Global functions';
-		document.JF.watch('status',document.JF.setStatus);
-		document.JF.status = "Done loading Framework";
+		JF.watch('status',JF.setStatus);
+		JF.status = "Done loading Framework";
 		console.warn ( 'JF is ready to roll!' );
 		core.init = null;
 		delete core;
 	},
-	createTemplateSystem:  function () {
-		document.JF.html = function () {
-		};
-	},
 	createJF:              function () {
-		document.JF = function () {
-		};
-		document.JF.prototype.private = function () {
+		JF.private = function () {
 			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
 				return false;
 			}
@@ -35,7 +26,7 @@ var core = {
 			} );
 			console.warn ( 'Add read-only property ' + arguments[1] );
 		};
-		document.JF.prototype.public = function () {
+		JF.public = function () {
 			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
 				return false;
 			}
@@ -47,10 +38,8 @@ var core = {
 			} );
 			console.warn ( 'Add public property ' + arguments[1] );
 		};
-		document.JF = new document.JF ();
-		document.JF.setStatus = function(){
+		JF.setStatus = function(){
 			status = arguments[2];
-			console.log(status);
 		};
 		return true;
 	},
@@ -60,11 +49,11 @@ var core = {
             if( typeof object == 'undefined' ){
                 return false;
             }else if( typeof object == 'object' && typeof object.value !== 'undefined' && typeof object.name !== 'undefined' ){
-                document.JF.public( this , object.name , object.value );
-                if(typeof document.JF.global == 'undefined'){
-                    document.JF.public ( document.JF, 'global', [] );
+                JF.public( this , object.name , object.value );
+                if(typeof JF.global == 'undefined'){
+                    JF.public ( JF, 'global', [] );
                 }
-                document.JF.global.push ( object.name );
+                JF.global.push ( object.name );
                 if(typeof object.description !== 'undefined'){
                     object.name.description = object.description;
                 }
@@ -72,7 +61,9 @@ var core = {
         };
         var global = {
             name: 'log',
-            value: function(){console.log(arguments)}
+            value: function(){
+                console.log(arguments)
+            }
         };
         Global(global);
         global = {
@@ -201,11 +192,12 @@ if ( !Object.prototype.watch ) {
                         oldval = newval;
                         return newval = handler.call ( this, prop, oldval, val );
                     };
-                if ( delete this[prop] ) { // can't watch constants
-                    Object.defineProperty ( this, prop, {
-                        get: getter, set: setter, enumerable: true, configurable: true
-                    } );
-                }
+//                if ( delete this[prop] ) { // can't watch constants
+//                    Object.defineProperty ( this, prop, {
+//                        get: getter, set: setter, enumerable: true, configurable: true
+//                    } );
+//                }
+
             }
         } );
     Object.watch.description = 'Creates a watcher for Object property when value is changed: property,function';

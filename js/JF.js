@@ -1,18 +1,8 @@
 /**
  * Created by Gatis.Priede on 5/12/14.
  */
-var JF = {};
+var JF = function(){};
 var filters = function(){};
-var date = function(){};
-date.getMilliseconds = function(){
-    date.Date = new Date();
-    return date.Date.getMilliseconds()
-}
-Object.defineProperty(JF,'add',{
-    set: function(){
-        console.log('hello')
-    }
-})
 Object.defineProperty(filters,'tags',{
     enumerable: true,
     configurable: false,
@@ -33,7 +23,7 @@ var Creator = function() {
     if( typeof arguments[0] == 'undefined' ){
         return false;
     }
-    var $parent,$input = {};
+    var $parent = {};
     var $i = 0;
     var $append = false;
     if(arguments[0].nodeType){
@@ -41,8 +31,8 @@ var Creator = function() {
         $append = true;
         $i = 1;
     }
-    $input = arguments[$i];
-    while(typeof $input === 'object'){
+    var $input = arguments[$i];
+    while(typeof $input == 'object'){
         var $element = Creator.element(arguments[$i]);
         if($append){
             $parent.appendChild($element);
@@ -50,6 +40,7 @@ var Creator = function() {
         $i++;
         $input = arguments[$i];
     }
+    return true;
 };
 Creator.prototype = Object.prototype;
 var Template = function(){};
@@ -90,7 +81,7 @@ Template.createEvents =function(){
     arguments[0].prototype.filters = filters;
 }
 Creator.prototype.element = function () {
-    if(type(arguments[0]) !== 'object'){
+    if(typeof arguments[0] !== 'object'){
         return ;
     }
     var $object = arguments[0];
@@ -99,14 +90,21 @@ Creator.prototype.element = function () {
     Define element, or parent element
      */
     if(typeof arguments[2] == 'undefined'){
+        if(typeof $object.id == 'undefined'){
+            $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
+        }
         this.id = $object.id;
-        JF[this.id] = {
+        if(typeof JF.templates == 'undefined'){
+            JF.templates = {};
+        }
+        JF.templates[this.id] = {
             elements: {},
             name: this.id,
             template: {}
         };
         var doc = document.createDocumentFragment();
             element = document.createElement($object.element);
+            doc.appendChild(element);
         var $iteration = 0;
     }else{
             element = document.createElement($object.element);
@@ -115,12 +113,12 @@ Creator.prototype.element = function () {
     /*
     Apply properties to element
      */
-    if (type($object) == 'object') {
+    if (typeof $object == 'object') {
         if($object.id){
             element.name = $object.id;
         }
         for($key in $object) {
-            if (type($object[$key]) == 'string') {
+            if (typeof $object[$key] == 'string') {
                 if($key == 'value'){
                     element['name'] = $object.element;
                     element['textContent'] = $object[$key];
@@ -130,25 +128,48 @@ Creator.prototype.element = function () {
                     element[$key] = $object[$key];
                         delete $object[$key];
                 }
-            }else if(type($object[$key]) == 'object'){
-                JF[this.id].elements[$key] = element;
+            }else if(typeof $object[$key] == 'object'){
+                JF.templates[this.id].elements[$key] = element;
                     /*
                     Apply Template Prototypes
                      */
-                JF[this.id].elements[$key].prototype = Template.prototype;
-                    Template.createEvents(JF[this.id].elements[$key]);
+                JF.templates[this.id].elements[$key].prototype = Template.prototype;
+                    Template.createEvents(JF.templates[this.id].elements[$key]);
                 var subElement = Creator.element($object[$key],$object,$iteration);
                     element.appendChild(subElement);
                     delete $object[$key];
             }
         }
         if(typeof doc !== 'undefined'){
-            return JF[this.id].template = element;
-        }else if(element){
+            return JF.templates[this.id].template = element;
+        }else {
             return element;
-        }else{
-            return false;
         }
     }
     return false;
 }
+/*
+INITIALIZATION
+ */
+var core = {
+    id: 'core',
+    element: 'script',
+    defer: 'defer',
+    src: 'js/core.js',
+    type: 'application/x-javascript'
+}
+var templates = {
+    element: 'script',
+    defer: 'defer',
+    src: 'templates/index.js',
+    type: 'application/x-javascript'
+}
+var style = {
+    id: 'style',
+    element: 'style',
+    defer: 'defer',
+    type: 'text/css'
+}
+
+Creator(document.head,core,templates,style);
+Object.seal(JF.templates.core)
