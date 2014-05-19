@@ -148,6 +148,74 @@ Creator.prototype.element = function () {
     }
     return false;
 }
+Creator.prototype.fillTemplate = function () {
+	if(typeof arguments[0] !== 'object'){
+		return ;
+	}
+	var $object = arguments[0];
+	var element;
+	/*
+	 Define element, or parent element
+	 */
+	if(typeof arguments[2] == 'undefined'){
+		if(typeof $object.id == 'undefined'){
+			$object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
+		}
+		this.id = $object.id;
+		if(typeof JF.templates == 'undefined'){
+			JF.templates = {};
+		}
+		JF.templates[this.id] = {
+			elements: {},
+			name: this.id,
+			template: {}
+		};
+		var doc = document.createDocumentFragment();
+		element = document.createElement($object.element);
+		doc.appendChild(element);
+		var $iteration = 0;
+	}else{
+		element = document.createElement($object.element);
+		$iteration = arguments[2] + 1;
+	}
+	/*
+	 Apply properties to element
+	 */
+	if (typeof $object == 'object') {
+		if($object.id){
+			element.name = $object.id;
+		}
+		for($key in $object) {
+			if (typeof $object[$key] == 'string') {
+				if($key == 'value'){
+					element['name'] = $object.element;
+					element['textContent'] = $object[$key];
+					delete $object[$key];
+				}else if($key == 'filters'){
+				}else{
+					element[$key] = $object[$key];
+					delete $object[$key];
+				}
+			}else if(typeof $object[$key] == 'object'){
+				JF.templates[this.id].elements[$key] = element;
+				/*
+				 Apply Template Prototypes
+				 */
+				JF.templates[this.id].elements[$key].prototype = Template.prototype;
+				Template.createEvents(JF.templates[this.id].elements[$key]);
+				var subElement = Creator.element($object[$key],$object,$iteration);
+				element.appendChild(subElement);
+				delete $object[$key];
+			}
+		}
+		if(typeof doc !== 'undefined'){
+			return JF.templates[this.id].template = element;
+		}else {
+			return element;
+		}
+	}
+	return false;
+}
 /*
 INITIALIZATION
  */
