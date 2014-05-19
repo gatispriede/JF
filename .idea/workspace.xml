@@ -26,7 +26,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="103" selection-end="103" vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="204">
+            <state line="4" column="6" selection-start="103" selection-end="103" vertical-scroll-proportion="-0.0" vertical-offset="68" max-vertical-offset="204">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="JF.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/JF.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="170" column="19" selection-start="4939" selection-end="4939" vertical-scroll-proportion="0.0" vertical-offset="2487" max-vertical-offset="4794">
+            <state line="207" column="14" selection-start="5977" selection-end="5977" vertical-scroll-proportion="-9.807693" vertical-offset="3264" max-vertical-offset="4063">
               <folding />
             </state>
           </provider>
@@ -44,7 +44,7 @@
       <file leaf-file-name="core.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/core.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="65" selection-start="644" selection-end="645" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="3757">
+            <state line="214" column="13" selection-start="7499" selection-end="7499" vertical-scroll-proportion="0.0" vertical-offset="3155" max-vertical-offset="3740">
               <folding />
             </state>
           </provider>
@@ -53,7 +53,7 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="14" selection-start="20" selection-end="20" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="119">
+            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="119">
               <folding />
             </state>
           </provider>
@@ -62,7 +62,7 @@
       <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="73" selection-start="2382" selection-end="2382" vertical-scroll-proportion="1.2842809" vertical-offset="626" max-vertical-offset="1496">
+            <state line="95" column="136" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.5863248" vertical-offset="1272" max-vertical-offset="1955">
               <folding />
             </state>
           </provider>
@@ -90,12 +90,12 @@
         <option value="$PROJECT_DIR$/jfunisimo/index.js" />
         <option value="$PROJECT_DIR$/jfunisimo/definitions.js" />
         <option value="$PROJECT_DIR$/jFunisimo/index.js" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/js/index.js" />
         <option value="$PROJECT_DIR$/js/definitions.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/js/core.js" />
         <option value="$PROJECT_DIR$/js/JF.js" />
+        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/templates/index.js" />
       </list>
     </option>
@@ -619,11 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="44" selection-start="579" selection-end="584" vertical-scroll-proportion="0.0" vertical-offset="355" max-vertical-offset="3247" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="975" column="13" selection-start="15091" selection-end="15098" vertical-scroll-proportion="0.40425533" vertical-offset="16385" max-vertical-offset="64821" />
@@ -665,28 +660,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="14" selection-start="20" selection-end="20" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="119">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="572">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/core.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="65" selection-start="644" selection-end="645" vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="3757">
+        <state line="214" column="13" selection-start="7499" selection-end="7499" vertical-scroll-proportion="0.0" vertical-offset="3155" max-vertical-offset="3740">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="167" column="5" selection-start="3063" selection-end="3063" vertical-scroll-proportion="0.33277592" vertical-offset="2640" max-vertical-offset="3247">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/JF.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="19" selection-start="4939" selection-end="4939" vertical-scroll-proportion="0.0" vertical-offset="2487" max-vertical-offset="4794">
+        <state line="207" column="14" selection-start="5977" selection-end="5977" vertical-scroll-proportion="-9.807693" vertical-offset="3264" max-vertical-offset="4063">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="73" selection-start="2382" selection-end="2382" vertical-scroll-proportion="1.2842809" vertical-offset="626" max-vertical-offset="1496">
+        <state line="95" column="136" selection-start="2343" selection-end="2343" vertical-scroll-proportion="0.5863248" vertical-offset="1272" max-vertical-offset="1955">
           <folding />
         </state>
       </provider>

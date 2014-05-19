@@ -43,41 +43,68 @@ var home = {
     element: "div",
     value: 'hello',
     id: "home",
-	onclick: function(){console.log('over')},
     body:    {
         element:     "div",
         className:       "jFunisimo",
+	    onmouseover: function(){
+		    var innerTemplate = Creator.clone(home);
+	        console.log('this ',innerTemplate);
+	    },
         "title":       {
             "element": "h1",
             "value":   "My new jFunisimo Library based on JavaScript."
         },
         "description": {
             "element": "h2",
-            "value":   "Welcome"
+            name: 'found_posts',
+            "value":   "Welcome",
+	        onclick: function(){console.log('cool stuff!')}
         },
         "listItems":   {
+            onclick: function(){console.log('cool stuff!')},
             "element": "ol",
             "className":   "ol list__todo",
             "text1":   {
                 "element": "li",
-                "value":   "Create template filling function",
-	            onclick: function(){console.log(this)}
+                "value":   "Create template filling function"
             },
             "text2":   {
                 "element": "li",
-                "value":   "create filling generator",
-	            onclick: function(){console.log('TEXTING 2 CLICK!')}
+                "value":   "create filling generator"
             }
         }
     }
 }
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
-Creator(document.body,home,home,home,home,home,home,home,home,home,home);
+JF.stringify = function(){
+	var $iteration = 0;
+	if(typeof arguments[1] == 'undefined'){
+
+	}else{
+		 $iteration++;
+	}
+	var $result = '{';
+	for(id in arguments[0]) {
+		switch (typeof arguments[0][id]){
+			case('string'):
+				$result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
+				break;
+			case('object'):
+				$result += '"'+id+'"'+':'+''+JF.stringify(arguments[0][id],$iteration)+',';
+				break;
+			case('function'):
+				if(arguments[0].hasOwnProperty(id)){
+					arguments[0][id] = arguments[0][id].toLocaleString().replace('"',"\"").replace(/(\r\n|\n|\r)/gm,"").replace(/\s+/g,"");
+					$result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
+					break;
+				}
+		}
+	}
+	$result += '}';
+	$result = $result.replace(',}','}');
+	return $result;
+};
+var lol = JF.stringify(home);
+console.log(lol);
+console.log(JSON.parse(lol));
+//Creator.fillTemplate(home,'lol');
+//Creator(document.body,home);
