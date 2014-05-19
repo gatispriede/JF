@@ -66,7 +66,11 @@ var home = {
             "className":   "ol list__todo",
             "text1":   {
                 "element": "li",
-                "value":   "Create template filling function"
+                "value":   "Create template filling function",
+		           lol: function(){
+		               var vall ='cool"stuggdd///asd;'+"acsd";
+		               console.log(vall,'auch!!')
+		           }
             },
             "text2":   {
                 "element": "li",
@@ -80,7 +84,7 @@ JF.stringify = function(){
 	if(typeof arguments[1] == 'undefined'){
 
 	}else{
-		 $iteration++;
+		$iteration++;
 	}
 	var $result = '{';
 	for(id in arguments[0]) {
@@ -103,8 +107,25 @@ JF.stringify = function(){
 	$result = $result.replace(',}','}');
 	return $result;
 };
+JF.parse = function(){
+	var $input = arguments[0].split('{');
+	var $result = {};
+	for(id in $input){
+		console.log(id,$input[id])
+		$input[id] = $input[id].replace('{','');
+		var $tmp = $input[id].split(':');
+		if('function'.search($tmp[1])){
+			$tmp[1] = $tmp[1].substr(1, $tmp[1].length-1);
+			console.log($tmp[1])
+		}
+		$result[$tmp[0]] = $tmp[1];
+	}
+	console.log($result);
+//	$result = $result.substr(1, $result.length-1);
+}
+
 var lol = JF.stringify(home);
-console.log(lol);
-console.log(JSON.parse(lol));
+var clean = JF.parse(lol);
+console.log(clean);
 //Creator.fillTemplate(home,'lol');
 //Creator(document.body,home);
