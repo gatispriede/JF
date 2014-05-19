@@ -33,7 +33,7 @@ var Creator = function() {
     }
     var $input = arguments[$i];
     while(typeof $input == 'object'){
-        var $element = Creator.element(arguments[$i]);
+        var $element = Creator.element(Creator.clone(arguments[$i]));
         if($append){
             $parent.appendChild($element);
         }
@@ -56,7 +56,7 @@ Template.prototype.add = function(){
         arguments[0].appendChild(this);
         $i++;
     }
-}
+};
 Template.createEvents =function(){
     Object.defineProperty(arguments[0],'value',{
         enumerable:true,
@@ -79,6 +79,37 @@ Template.createEvents =function(){
         }
     });
     arguments[0].prototype.filters = filters;
+};
+Creator.prototype.clone = function() {
+	// Handle the 3 simple types, and null or undefined
+	if (null == arguments[0] || "object" != typeof arguments[0]) return arguments[0];
+
+	// Handle Date
+	if (arguments[0] instanceof Date) {
+		var copy = new Date();
+		copy.setTime(arguments[0].getTime());
+		return copy;
+	}
+
+	// Handle Array
+	if (arguments[0] instanceof Array) {
+		var copy = [];
+		for (var i = 0, len = arguments[0].length; i < len; i++) {
+			copy[i] = Creator.clone(arguments[0][i]);
+		}
+		return copy;
+	}
+
+	// Handle Object
+	if (arguments[0] instanceof Object) {
+		var copy = {};
+		for (var attr in arguments[0]) {
+			if (arguments[0].hasOwnProperty(attr)) copy[attr] = Creator.clone(arguments[0][attr]);
+		}
+		return copy;
+	}
+
+	throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 Creator.prototype.element = function () {
     if(typeof arguments[0] !== 'object'){
@@ -90,13 +121,15 @@ Creator.prototype.element = function () {
     Define element, or parent element
      */
     if(typeof arguments[2] == 'undefined'){
+	    if(typeof JF.templates == 'undefined'){
+		    JF.templates = {};
+	    }
         if(typeof $object.id == 'undefined'){
             $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
+        }else if(typeof JF.templates[$object.id] !== 'undefined'){
+	        $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
         }
         this.id = $object.id;
-        if(typeof JF.templates == 'undefined'){
-            JF.templates = {};
-        }
         JF.templates[this.id] = {
             elements: {},
             name: this.id,
@@ -147,7 +180,7 @@ Creator.prototype.element = function () {
         }
     }
     return false;
-}
+};
 Creator.prototype.fillTemplate = function () {
 	if(typeof arguments[0] !== 'object'){
 		return ;
@@ -215,7 +248,7 @@ Creator.prototype.fillTemplate = function () {
 		}
 	}
 	return false;
-}
+};
 /*
 INITIALIZATION
  */
@@ -225,19 +258,19 @@ var core = {
     defer: 'defer',
     src: 'js/core.js',
     type: 'application/x-javascript'
-}
+};
 var templates = {
     element: 'script',
     defer: 'defer',
     src: 'templates/index.js',
     type: 'application/x-javascript'
-}
+};
 var style = {
     id: 'style',
     element: 'style',
     defer: 'defer',
     type: 'text/css'
-}
+};
 
 Creator(document.head,core,templates,style);
-Object.seal(JF.templates.core)
+Object.seal(JF.templates.core);
