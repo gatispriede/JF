@@ -43,15 +43,9 @@ var home = {
     element: "div",
     value: 'hello',
     id: "home",
-    name: "pagename",
-    override: true,
     body:    {
         element:     "div",
         className:       "jFunisimo",
-	    onmouseover: function(){
-		    var innerTemplate = Creator.clone(home);
-	        console.log('this ',innerTemplate);
-	    },
         "title":       {
             "element": "h1",
             name: "post_type",
@@ -61,6 +55,7 @@ var home = {
             "element": "h2",
             name: 'found_posts',
             "value": "Welcome",
+	        onmouseover: function(){console.log('cool stuff!')},
 	        onclick: function(){console.log('cool stuff!')}
         },
         "listItems":   {
@@ -70,7 +65,7 @@ var home = {
             "text1":   {
                 "element": "li",
                 name: "key",
-                "value":   "Create template filling function",
+                "value":   "Create template filling function"
             },
             "text2":   {
                 "element": "li",
@@ -83,5 +78,5 @@ var home = {
         }
     }
 }
-Creator.fillTemplate(home,tmp);
 Creator(document.body,home);
+Creator.indexHtml(JF.templates.home.html);
