@@ -14,6 +14,32 @@ var core = {
 		delete core;
 	},
 	createJF:              function () {
+        JF.stringify = function(){
+            var $iteration = 0;
+            if(typeof arguments[1] !== 'undefined'){
+                $iteration = arguments[1] + 1;
+            }
+            var $result = '{';
+            for(id in arguments[0]) {
+                switch (typeof arguments[0][id]){
+                    case('string'):
+                        $result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
+                        break;
+                    case('object'):
+                        $result += '"'+id+'"'+':'+''+JF.stringify(arguments[0][id],$iteration)+',';
+                        break;
+                    case('function'):
+                        if(arguments[0].hasOwnProperty(id)){
+                            arguments[0][id] = arguments[0][id].toLocaleString().replace('"',"\"").replace(/(\r\n|\n|\r)/gm,"").replace(/\s+/g,"");
+                            $result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
+                            break;
+                        }
+                }
+            }
+            $result += '}';
+            $result = $result.replace(',}','}');
+            return $result;
+        };
 		JF.private = function () {
 			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
 				return false;

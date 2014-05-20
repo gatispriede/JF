@@ -43,6 +43,8 @@ var home = {
     element: "div",
     value: 'hello',
     id: "home",
+    name: "pagename",
+    override: true,
     body:    {
         element:     "div",
         className:       "jFunisimo",
@@ -52,12 +54,13 @@ var home = {
 	    },
         "title":       {
             "element": "h1",
+            name: "post_type",
             "value":   "My new jFunisimo Library based on JavaScript."
         },
         "description": {
             "element": "h2",
             name: 'found_posts',
-            "value":   "Welcome",
+            "value": "Welcome",
 	        onclick: function(){console.log('cool stuff!')}
         },
         "listItems":   {
@@ -66,66 +69,19 @@ var home = {
             "className":   "ol list__todo",
             "text1":   {
                 "element": "li",
+                name: "key",
                 "value":   "Create template filling function",
-		           lol: function(){
-		               var vall ='cool"stuggdd///asd;'+"acsd";
-		               console.log(vall,'auch!!')
-		           }
             },
             "text2":   {
                 "element": "li",
                 "value":   "create filling generator"
             }
+        },
+        postList:{
+            element: "ol",
+            name: "posts"
         }
     }
 }
-JF.stringify = function(){
-	var $iteration = 0;
-	if(typeof arguments[1] == 'undefined'){
-
-	}else{
-		$iteration++;
-	}
-	var $result = '{';
-	for(id in arguments[0]) {
-		switch (typeof arguments[0][id]){
-			case('string'):
-				$result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
-				break;
-			case('object'):
-				$result += '"'+id+'"'+':'+''+JF.stringify(arguments[0][id],$iteration)+',';
-				break;
-			case('function'):
-				if(arguments[0].hasOwnProperty(id)){
-					arguments[0][id] = arguments[0][id].toLocaleString().replace('"',"\"").replace(/(\r\n|\n|\r)/gm,"").replace(/\s+/g,"");
-					$result += '"'+id+'"'+':'+'"'+arguments[0][id]+'",';
-					break;
-				}
-		}
-	}
-	$result += '}';
-	$result = $result.replace(',}','}');
-	return $result;
-};
-JF.parse = function(){
-	var $input = arguments[0].split('{');
-	var $result = {};
-	for(id in $input){
-		console.log(id,$input[id])
-		$input[id] = $input[id].replace('{','');
-		var $tmp = $input[id].split(':');
-		if('function'.search($tmp[1])){
-			$tmp[1] = $tmp[1].substr(1, $tmp[1].length-1);
-			console.log($tmp[1])
-		}
-		$result[$tmp[0]] = $tmp[1];
-	}
-	console.log($result);
-//	$result = $result.substr(1, $result.length-1);
-}
-
-var lol = JF.stringify(home);
-var clean = JF.parse(lol);
-console.log(clean);
-//Creator.fillTemplate(home,'lol');
-//Creator(document.body,home);
+Creator.fillTemplate(home,tmp);
+Creator(document.body,home);

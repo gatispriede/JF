@@ -75,7 +75,12 @@ Template.createEvents =function(){
         enumerable:true,
         configurable: true,
         set: function(){
-            this.childNodes[0].textContent = arguments[0];
+            if(typeof arguments[0] == 'string'){
+                this.childNodes[0].textContent = arguments[0];
+            }else if(typeof arguments[0] == 'object'){
+                this.appendChild(Creator(arguments[0]));
+            }
+
         },
         get: function(){
             return this.childNodes[0].textContent;
@@ -139,7 +144,7 @@ Creator.prototype.element = function () {
 	    }
         if(typeof $object.id == 'undefined'){
             $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
-        }else if(typeof JF.templates[$object.id] !== 'undefined'){
+        }else if(typeof JF.templates[$object.id] !== 'undefined' || typeof $object.override !== 'undefined'){
 	        $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
         }
         this.id = $object.id;
@@ -166,7 +171,7 @@ Creator.prototype.element = function () {
         for($key in $object) {
             if (typeof $object[$key] == 'string' || typeof $object[$key] == 'function') {
                 if($key == 'value'){
-                    element['name'] = $object.element;
+//                    element['name'] = $object.element;
                     element['textContent'] = $object[$key];
                         delete $object[$key];
                 }else if($key == 'filters'){
@@ -204,8 +209,110 @@ Creator.prototype.fillTemplate = function () {
 		JF.debug('Creator.fillTemplate: Wrong input arguments',arguments);
 		return ;
 	}
-	var $mode = typeof arguments[0];
-	type($mode) == 'string' ? console.log(this.constructor) : console.log('log') ;
+    this.generateElements = function(base,input){
+        var type = base.element;
+        switch (type) {
+            case('ol'):
+                for(id in input){
+                    if(typeof input[id] == 'function'){
+                        continue;
+                    }
+                    if(typeof input[id] == 'object'){
+                        base[id] = input[id];
+                    }
+                    if(base[id]['element']){
+                        base[id]['element'] = 'li';
+                    }
+                }
+                return base;
+            case('table'):
+                for(id in input){
+                    if(typeof input[id] == 'function'){
+                        continue;
+                    }
+                    if(typeof input[id] == 'object'){
+                        base[id] = input[id];
+                    }
+                    if(base[id]['element']){
+                        base[id]['element'] = 'td';
+                    }
+                }
+                return base;
+            case('div'):
+                for(id in input){
+                    if(typeof input[id] == 'function'){
+                        continue;
+                    }
+                    if(typeof input[id] == 'object'){
+                        base[id] = input[id];
+                    }
+                    if(base[id]['element']){
+                        base[id]['element'] = 'span';
+                    }
+                }
+                return base;
+            default :
+                return input;
+        }
+    }
+    this.updateObject = function(base,name,value){
+        if(base.hasOwnProperty('name')){
+            if(base.name === name){
+                if(typeof value == 'string' || typeof value == 'number'){
+                    base.value = value.toLocaleString();
+                }else if(typeof value == 'object'){
+                    base = this.generateElements(base,value);
+                }
+            }
+        }
+        for(key in base){
+            if(typeof base[key] == 'object'){
+                if(typeof base[key].nodeType == 'undefined'){
+                    this.updateObject(base[key],name,value);
+                }else{
+                    if(base[key].name == name){
+                        base[key].value = value;
+                    }
+                }
+            }
+        }
+    }
+    this.iterateOverrides = function(base,overrides){
+        for(id in overrides){
+            if(overrides.hasOwnProperty(id) && typeof overrides[id] !== 'function' ){
+                var name = id;
+                var value = overrides[id];
+                if(base.hasOwnProperty('name')){
+                    if(base.name === name){
+                        if(typeof value == 'string' || typeof value == 'number'){
+                            base.value = value.toLocaleString();
+                        }else if(typeof value == 'object'){
+                            base = this.generateElements(base,value);
+                        }
+                    }
+                }
+                this.updateObject(base,name,value);
+            }
+        }
+    }
+    this.convertToObject = function(){
+        try{
+            var overrides = JSON.parse(arguments[1])
+            this.iterateOverrides(arguments[0],overrides);
+        }catch(error){
+            console.log(error)
+        }
+    }
+	var $mode = typeof arguments[1];
+	$mode == 'string' ?
+
+        this.convertToObject(arguments[0],arguments[1])
+
+    : $mode == 'object' ?
+
+        this.iterateOverrides(arguments[0],arguments[1])
+
+    : console.log('non defined input');
 };
 /*
 INITIALIZATION
