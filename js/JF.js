@@ -140,11 +140,16 @@ Creator.prototype.element = function () {
      */
     if(typeof arguments[2] == 'undefined'){
 	    if(typeof JF.templates == 'undefined'){
-		    JF.templates = {};
+		    Object.defineProperty(JF,'templates',{
+                value: {}
+            });
 	    }
+        if($object.override == true && typeof $object.id !== 'undefined' && JF.templates[$object.id]) {
+            JF.templates[$object.id].template.remove();
+        }
         if(typeof $object.id == 'undefined'){
             $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
-        }else if(typeof JF.templates[$object.id] !== 'undefined' || typeof $object.override !== 'undefined'){
+        }else if(typeof JF.templates[$object.id] !== 'undefined' && $object.override != true ){
 	        $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
         }
         this.id = $object.id;
@@ -161,6 +166,7 @@ Creator.prototype.element = function () {
             element = document.createElement($object.element);
         $iteration = arguments[2] + 1;
     }
+    this.type = $object.element;
     /*
     Apply properties to element
      */
@@ -175,21 +181,38 @@ Creator.prototype.element = function () {
                     element['textContent'] = $object[$key];
                         delete $object[$key];
                 }else if($key == 'filters'){
+                }else if($key == 'style'){
+                    var $rule = "#" + this.id + " " + this.type + " { ";
+                    $rule += $object[$key] + ';';
+                    $rule += "}";
+                    console.log($rule)
+                    JFstyle.insertRule($rule,1);
                 }else{
                     element[$key] = $object[$key];
                         delete $object[$key];
                 }
             }else if(typeof $object[$key] == 'object'){
-	            var elementName = $key;
-                var subElement = Creator.element($object[$key],$object,$iteration);
-                    element.appendChild(subElement);
-	            JF.templates[this.id].elements[elementName] = subElement;
-	            /*
-	             Apply Template Prototypes
-	             */
-	            JF.templates[this.id].elements[elementName].prototype = Template.prototype;
-	            Template.createEvents(JF.templates[this.id].elements[elementName]);
-                    delete $object[$key];
+                if($key == 'style'){
+                    var $rule = "#" + this.id + " " + this.type + " { ";
+                    for(rule in $object[$key]){
+                        if(typeof $object[$key][rule] !== 'function'){
+                            $rule += rule+":"+$object[$key][rule]+"; ";
+                        }
+                    }
+                    $rule += "}";
+                    JFstyle.insertRule($rule,0);
+                }else{
+                    var elementName = $key;
+                    var subElement = Creator.element($object[$key],$object,$iteration);
+                        element.appendChild(subElement);
+                    JF.templates[this.id].elements[elementName] = subElement;
+                    /*
+                     Apply Template Prototypes
+                     */
+                    JF.templates[this.id].elements[elementName].prototype = Template.prototype;
+                    Template.createEvents(JF.templates[this.id].elements[elementName]);
+                        delete $object[$key];
+                }
             }
         }
         if(typeof doc !== 'undefined'){
@@ -300,7 +323,7 @@ Creator.prototype.fillTemplate = function () {
             var overrides = JSON.parse(arguments[1])
             this.iterateOverrides(arguments[0],overrides);
         }catch(error){
-            console.log(error)
+            console.warn(error);
         }
     }
 	var $mode = typeof arguments[1];
@@ -312,30 +335,43 @@ Creator.prototype.fillTemplate = function () {
 
         this.iterateOverrides(arguments[0],arguments[1])
 
-    : console.log('non defined input');
+    : console.warn('non defined input');
 };
-/*
-INITIALIZATION
- */
-var core = {
-    id: 'core',
-    element: 'script',
-    defer: 'defer',
-    src: 'js/core.js',
-    type: 'application/x-javascript'
-};
-var templates = {
-    element: 'script',
-    defer: 'defer',
-    src: 'templates/index.js',
-    type: 'application/x-javascript'
-};
-var style = {
-    id: 'style',
-    element: 'style',
-    defer: 'defer',
-    type: 'text/css'
-};
-
-Creator(document.head,core,templates,style);
-Object.seal(JF.templates.core);
+Creator.prototype.init = function(){
+    /*
+     INITIALIZATION
+     */
+    var style = {
+        id: 'style',
+        element: 'style',
+        defer: 'defer',
+        type: 'text/css'
+    };
+    var core = {
+        id: 'core',
+        element: 'script',
+        defer: 'defer',
+        src: 'js/core.js',
+        type: 'application/x-javascript'
+    };
+    var templates = {
+        id: 'templates',
+        element: 'script',
+        defer: 'defer',
+        src: 'templates/index.js',
+        type: 'application/x-javascript'
+    };
+    Creator(document.head,core,templates);
+    Creator(style);
+    document.head.insertBefore(JF.templates.style.template,document.head.childNodes[0]);
+    delete JF.templates.core;
+    delete JF.templates.templates;
+}
+Creator.init();
+Object.defineProperty(this,'JFstyle',{
+    enumerable:true,
+    configurable:false,
+    writable:true,
+    value: JF.templates.style.template.sheet
+});
+delete JF.templates.style;

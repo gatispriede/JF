@@ -47,13 +47,13 @@ var home = {
     override: true,
     body:    {
         element:     "div",
-        className:       "jFunisimo",
-	    onmouseover: function(){
-		    var innerTemplate = Creator.clone(home);
-	        console.log('this ',innerTemplate);
-	    },
+        className:       "JF",
         "title":       {
             "element": "h1",
+            style: {
+                color: "red",
+                "font-size": '30px'
+            },
             name: "post_type",
             "value":   "My new jFunisimo Library based on JavaScript."
         },
@@ -61,7 +61,7 @@ var home = {
             "element": "h2",
             name: 'found_posts',
             "value": "Welcome",
-	        onclick: function(){console.log('cool stuff!')}
+            style: 'background: blue'
         },
         "listItems":   {
             onclick: function(){console.log('cool stuff!')},
@@ -83,5 +83,5 @@ var home = {
         }
     }
 }
-Creator.fillTemplate(home,tmp);
+//Creator.fillTemplate(home,tmp);
 Creator(document.body,home);

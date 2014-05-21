@@ -50,7 +50,6 @@ var core = {
 				configurable: false,
 				value:        arguments[2]
 			} );
-			console.warn ( 'Add read-only property ' + arguments[1] );
 		};
 		JF.public = function () {
 			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
@@ -62,7 +61,6 @@ var core = {
 				configurable: true,
 				value:        arguments[2]
 			} );
-			console.warn ( 'Add public property ' + arguments[1] );
 		};
 		JF.setStatus = function(){
 			status = arguments[2];
@@ -75,7 +73,7 @@ var core = {
             if( typeof object == 'undefined' ){
                 return false;
             }else if( typeof object == 'object' && typeof object.value !== 'undefined' && typeof object.name !== 'undefined' ){
-                JF.public( this , object.name , object.value );
+                JF.private( this , object.name , object.value );
                 if(typeof JF.global == 'undefined'){
                     JF.public ( JF, 'global', [] );
                 }
