@@ -361,8 +361,9 @@ Creator.prototype.init = function(){
         src: 'templates/index.js',
         type: 'application/x-javascript'
     };
-    Creator(document.head,core,templates);
-    Creator(style);
+    Creator(core,templates,style);
+    document.head.insertBefore(JF.templates.core.template,document.head.childNodes[0]);
+    document.head.insertBefore(JF.templates.templates.template,document.head.childNodes[0]);
     document.head.insertBefore(JF.templates.style.template,document.head.childNodes[0]);
     delete JF.templates.core;
     delete JF.templates.templates;

@@ -1,4 +1,3 @@
-
 var hidden = {
     element: 'div',
     data: 'layers/hidden.html',
@@ -83,5 +82,4 @@ var home = {
         }
     }
 }
-//Creator.fillTemplate(home,tmp);
 Creator(document.body,home);
