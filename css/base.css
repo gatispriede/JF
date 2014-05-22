@@ -1,12 +1,3 @@
-li{
-	display: block;
-}
-h2 {
-     background: white;
- }
-#home h2 {
-    background: white;
-}
-h2 {
-    color: red;
+body{
+	margin: auto;
 }
