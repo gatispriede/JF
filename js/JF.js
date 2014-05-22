@@ -70,7 +70,7 @@ Template.prototype.add = function(){
         $i++;
     }
 };
-Template.createEvents =function(){
+Template.createEvents = function(){
     Object.defineProperty(arguments[0],'value',{
         enumerable:true,
         configurable: true,
@@ -379,9 +379,11 @@ Creator.prototype.init = function(){
         type: 'application/x-javascript'
     };
     Creator(core,templates,style);
-    document.head.insertBefore(JF.templates.core.template,document.head.childNodes[0]);
-    document.head.insertBefore(JF.templates.templates.template,document.head.childNodes[0]);
-    document.head.insertBefore(JF.templates.style.template,document.head.childNodes[0]);
+    var head = document.getElementsByTagName('head')[0];
+    head.insertBefore(JF.templates.core.template,head.childNodes[0]);
+    head.insertBefore(JF.templates.templates.template,head.childNodes[0]);
+    head.insertBefore(JF.templates.style.template,head.childNodes[0]);
+    head.appendChild(JF.templates.core.template)
     delete JF.templates.core;
     delete JF.templates.templates;
 }
