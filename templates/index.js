@@ -40,13 +40,12 @@ var base = {
 }
 var home = {
     element: "div",
-    value: 'hello',
     id: "home",
-    name: "pagename",
     override: true,
+    style: "background: gray",
     body:    {
         element:     "div",
-        className:       "JF",
+        class:       "JF",
         "title":       {
             "element": "h1",
             style: {
@@ -65,15 +64,22 @@ var home = {
         "listItems":   {
             onclick: function(){console.log('cool stuff!')},
             "element": "ol",
-            "className":   "ol list__todo",
+            "class":   "ol list__todo",
             "text1":   {
                 "element": "li",
+                class: "old",
                 name: "key",
-                "value":   "Create template filling function",
+                style: "color: blue",
+                "value":   "Create template filling function"
             },
             "text2":   {
                 "element": "li",
-                "value":   "create filling generator"
+                "value":   "create filling generator",
+                class: "new",
+                style: {
+                    color: "red",
+                    "font-size": '65px'
+                }
             }
         },
         postList:{

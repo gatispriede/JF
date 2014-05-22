@@ -135,6 +135,8 @@ Creator.prototype.element = function () {
     }
     var $object = arguments[0];
     var element;
+    var ruleName;
+    var $rule;
     /*
     Define element, or parent element
      */
@@ -171,29 +173,44 @@ Creator.prototype.element = function () {
     Apply properties to element
      */
     if (typeof $object == 'object') {
-        if($object.id){
-            element.name = $object.id;
-        }
+        typeof $object.class !== 'undefined' ? this.class = $object.class: '';
+        typeof $object.id !== 'undefined' ? element.name = $object.id : '';
         for($key in $object) {
+            typeof $object[$key].class !== 'undefined' ? this.class = $object[$key].class : '';
             if (typeof $object[$key] == 'string' || typeof $object[$key] == 'function') {
-                if($key == 'value'){
-//                    element['name'] = $object.element;
-                    element['textContent'] = $object[$key];
-                        delete $object[$key];
-                }else if($key == 'filters'){
-                }else if($key == 'style'){
-                    var $rule = "#" + this.id + " " + this.type + " { ";
-                    $rule += $object[$key] + ';';
-                    $rule += "}";
-                    console.log($rule)
-                    JFstyle.insertRule($rule,1);
-                }else{
-                    element[$key] = $object[$key];
-                        delete $object[$key];
+                switch ($key){
+                    case('value'):
+                        element['textContent'] = $object[$key];
+                        break;
+                    case('style'):
+                        if(typeof $object.class !== 'undefined'){
+                            ruleName = " ." + $object.class;
+                        }else{
+                            ruleName = typeof this.class !== 'undefined' ? " ." + this.class.replace(' ','.') + " " + this.type : ""  ;
+                        }
+                        $rule = '#' + this.id + ruleName + " { ";
+                        $rule += $object[$key] + ';';
+                        $rule += "}";
+                        JFstyle.insertRule($rule,0);
+                        break;
+                    case('class'):
+                        element['className'] = $object[$key];
+                        break;
+                    case('filter'):
+
+                        break;
+                    default:
+                        element[$key] = $object[$key];
+                        break;
                 }
             }else if(typeof $object[$key] == 'object'){
                 if($key == 'style'){
-                    var $rule = "#" + this.id + " " + this.type + " { ";
+                    if(typeof $object.class !== 'undefined'){
+                        ruleName = " ." + $object.class;
+                    }else{
+                        ruleName = typeof this.class !== 'undefined' ? " ." + this.class.replace(' ','.') + " " + this.type : ""  ;
+                    }
+                    $rule = '#' + this.id + ruleName + " { ";
                     for(rule in $object[$key]){
                         if(typeof $object[$key][rule] !== 'function'){
                             $rule += rule+":"+$object[$key][rule]+"; ";
