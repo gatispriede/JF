@@ -5,7 +5,7 @@ var hidden = {
     id: 'hidden',
     title: {
         element: 'h1',
-        value: 'Hidden Layer'
+        text: 'Hidden Layer'
     }
 }
 var fixed = {
@@ -15,7 +15,7 @@ var fixed = {
     id: 'fixed',
     title: {
         element: 'h1',
-        value: 'fixed Layer'
+        text: 'fixed Layer'
     }
 }
 var loader = {
@@ -25,7 +25,7 @@ var loader = {
     id: 'loader',
     title: {
         element: 'h1',
-        value: 'loader Layer'
+        text: 'loader Layer'
     }
 }
 var base = {
@@ -35,40 +35,48 @@ var base = {
     id: 'base',
     title: {
         element: 'h1',
-        value: 'index Layer'
+        text: 'index Layer'
     }
 }
 var home = {
     element: "div",
-    value: 'hello',
     id: "home",
     body:    {
         element:     "div",
-        className:       "jFunisimo",
+        class:       "jFunisimo",
         "title":       {
             "element": "h1",
             name: "post_type",
-            "value":   "My new jFunisimo Library based on JavaScript."
+            "text":   "TODO list:"
         },
         "description": {
             "element": "h2",
             name: 'found_posts',
-            "value": "Welcome",
+            "text": "Welcome",
 	        onmouseover: function(){console.log('cool stuff!')},
 	        onclick: function(){console.log('cool stuff!')}
         },
         "listItems":   {
             onclick: function(){console.log('cool stuff!')},
             "element": "ol",
-            "className":   "ol list__todo",
+            "class":   "ol list__todo",
+            style: {
+            	display: "block",
+            	background: "gray"
+            },
             "text1":   {
                 "element": "li",
                 name: "key",
-                "value":   "Create template filling function"
+                style: "color: blue",
+                inlineStyle: {
+                	color: 'red',
+                	background: "white"
+                },
+                "text":   "Create template filling function" + Date()
             },
             "text2":   {
                 "element": "li",
-                "value":   "create filling generator"
+                "text":   "create filling generator"
             }
         },
         postList:{
@@ -78,4 +86,3 @@ var home = {
     }
 }
 Creator(document.body,home);
-Creator.indexHtml(JF.templates.home.html);

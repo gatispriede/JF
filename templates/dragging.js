@@ -1,20 +1,15 @@
 var draggable = {
+	id: "new",
 	element: "div",
 	class: "draggable",
 	onmousedown: function(event){
-		console.log('Drag Started!');
-		this.style.position = 'absolute';
-		console.log([this],this.offsetLeft)
-		this.style.top = 50;
-		this.style.left = 200;
 	},
 	onmouseup: function(event){
-		this.style.position = 'relative';
-		console.log('Drag ended!');
 	},
 	title: {
 		element: 'h1',
-		value: "Draggable element!"
+		text: "Draggable element!",
+		custom: console.log('cool')//this.getClientRects()
 	}
 }
-Creator(document.getElementsByTagName('body')[0], draggable)
+Creator(document.body, draggable);
