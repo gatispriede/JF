@@ -23,15 +23,21 @@ text = creates textNode for HTMLelement
 
 ### Available fucntions/features ###
 
-Creator(TARGET,input) function = creates template form input, if target provided it will append it
-Creator.fillTemplate(JSON,template) function  = updates template with JSON input from template name attribute is used to update values within template form JSON key
-Creator.indexHtml(HTMLelement) function = creates template object from actual HTML on page
-JF.stringify(input) function = makes string from input
 
-JFstyle Object = holds dynamic style for templates
-JF.templates Object = holds all created templates
-JF.mouse Object = holds mouse live properties
-JF.touch Object = holds touch live properties
+```
+#!HTML
+
+Creator(TARGET,input) function = creates template form input, if target provided it will append it.
+Creator.fillTemplate(JSON,template) function  = updates template with JSON input from template name attribute is used to update values within template form JSON key.
+Creator.indexHtml(HTMLelement) function = creates template object from actual HTML on page.
+JF.stringify(input) function = makes string from input.
+
+JFstyle Object = holds dynamic style for templates.
+JF.templates Object = holds all created templates.
+JF.mouse Object = holds mouse live properties.
+JF.touch Object = holds touch live properties.
+```
+
 
 ### Help ###
 
