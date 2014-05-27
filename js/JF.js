@@ -1,5 +1,5 @@
 /**
- * Created by Gatis.Priede on 5/12/14.
+ * Copyright (C) 2014 Funisimo
  */
 var JF = function(){};
 JF.debug = function(){
