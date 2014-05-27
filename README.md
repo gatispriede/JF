@@ -12,6 +12,10 @@ download and include JF js into HEAD
 
 ### RULES ###
 
+
+```
+#!HTML
+
 1. template object **MUST** have element String attribute ("div","span","li".etc.)
 2. template main element should have ID or uniq number will be provided
 
@@ -20,6 +24,8 @@ style = creates style for this object within JFstyle object
 inlineStyle = creates inline style for DOM element
 name = used for filling template from external source
 text = creates textNode for HTMLelement
+```
+
 
 ### Available fucntions/features ###
 
