@@ -1,65 +1,25 @@
-var hidden = {
-    element: 'div',
-    data: 'layers/hidden.html',
-    type: 'text/html',
-    id: 'hidden',
-    title: {
-        element: 'h1',
-        text: 'Hidden Layer'
-    }
-}
-var fixed = {
-    element: 'div',
-    data: 'layers/fixed.html',
-    type: 'text/html',
-    id: 'fixed',
-    title: {
-        element: 'h1',
-        text: 'fixed Layer'
-    }
-}
-var loader = {
-    element: 'div',
-    data: 'layers/loader.html',
-    type: 'text/html',
-    id: 'loader',
-    title: {
-        element: 'h1',
-        text: 'loader Layer'
-    }
-}
-var base = {
-    element: 'div',
-    data: 'layers/index.html',
-    type: 'text/html',
-    id: 'base',
-    title: {
-        element: 'h1',
-        text: 'index Layer'
-    }
-}
 var home = {
     element: "div",
     id: "home",
     body:    {
         element:     "div",
-        class:       "jFunisimo",
+        class:       "JF",
         "title":       {
             "element": "h1",
             name: "post_type",
-            "text":   "TODO list:"
+            "text":   "Welcome"
         },
         "description": {
             "element": "h2",
             name: 'found_posts',
-            "text": "Welcome",
+            "text": "This content is created with JF framework",
 	        onmouseover: function(){console.log('cool stuff!')},
 	        onclick: function(){console.log('cool stuff!')}
         },
         "listItems":   {
-            onclick: function(){console.log('cool stuff!')},
+            onmouseout: function(){console.log('cool stuff!')},
             "element": "ol",
-            "class":   "ol list__todo",
+            "class":   "ol",
             style: {
             	display: "block",
             	background: "gray"
@@ -72,17 +32,32 @@ var home = {
                 	color: 'red',
                 	background: "white"
                 },
-                "text":   "Create template filling function" + Date()
+                "text": "You can use 'Creator' function to call on template. All templates after creation process are available within 'JF.templates' Object. <b> To create template you must provide 'element' attribute for each element and follow JSON syntax rules<b>"
+            },
+            "text1":   {
+                "element": "li",
+                name: "key",
+                style: "color: blue",
+                inlineStyle: {
+                	color: 'red',
+                	background: "white"
+                },
+                "text": "You can use 'Creator' function to call on template."
             },
             "text2":   {
                 "element": "li",
-                "text":   "create filling generator"
+                "text":   "Help on available keys in JSON are available on Bitbucket https://bitbucket.org/funisimo/jf"
             }
         },
-        postList:{
+        "Features-available":{
             element: "ol",
-            name: "posts"
+            name: "features",
+            date: {
+            	element: "span",
+            	text: "You can use functions to set values, like date: " + Date()
+            }
         }
     }
 }
+
 Creator(document.body,home);

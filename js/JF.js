@@ -706,18 +706,10 @@ Creator.prototype.init = function(){
         src: 'templates/index.js',
         type: 'application/x-javascript'
     };
-    var drag = {
-        id: 'drag',
-        element: "script",
-        defer: "defer",
-        src: "templates/dragging.js",
-        type: 'application/x-javascript'
-    };
-    Creator(templates,style,drag);
+    Creator(templates,style);
     var head = document.getElementsByTagName('head')[0];
     head.insertBefore(JF.templates.templates.html,head.childNodes[0]);
     head.insertBefore(JF.templates.style.html,head.childNodes[0]);
-    delete JF.templates.core;
     delete JF.templates.templates;
 }
 Creator.init();
