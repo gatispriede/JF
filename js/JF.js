@@ -149,7 +149,7 @@ var core = {
 		global = {
 			name: 'isElement',
 			value:function () {
-				if ( type ( arguments[0].nodeType ) == 'undefined' ) {
+				if ( ! arguments[0] instanceof HTMLElement ) {
 					return false;
 				}
 				if ( arguments[1] ) {
@@ -284,6 +284,91 @@ Template.prototype.add = function(){
         $i++;
     }
 };
+Template.addListener = function(element, type, callback, capture) {
+    if (element.addEventListener) {
+        element.addEventListener(type, callback, capture);
+    } else {
+        element.attachEvent("on" + type, callback);
+    }
+}
+Template.draggable = function(element,props) {
+    Template.dragging = null;
+    if(typeof props !== 'undefined'){
+        Template.draggingProperties = {
+            container: {
+                left: parseInt(props.container.getBoundingClientRect().left),
+                top: parseInt(props.container.getBoundingClientRect().top),
+                right: parseInt(props.container.getBoundingClientRect().right),
+                bottom: parseInt(props.container.getBoundingClientRect().bottom)
+            }
+        }
+    }
+    Template.addListener(element, "mousedown", function(e) {
+        var e = window.event || e;
+        element.style.position = 'absolute';
+        Template.dragging = {
+            mouseX: e.clientX,
+            mouseY: e.clientY,
+            startX: parseInt(element.style.left) || parseInt(element.getBoundingClientRect().left),
+            startY: parseInt(element.style.top) || parseInt(element.getBoundingClientRect().top),
+            width: parseInt(element.getBoundingClientRect().width),
+            height: parseInt(element.getBoundingClientRect().height)
+        };
+        if (element.setCapture) element.setCapture();
+    });
+
+    Template.addListener(element, "losecapture", function() {
+        Template.dragging = null;
+    });
+
+    Template.addListener(document, "mouseup", function(e) {
+        console.log(e)
+        Template.dragging = null;
+    }, true);
+
+    var dragTarget = element.setCapture ? element : window;
+
+    Template.addListener(dragTarget, "mousemove", function(e) {
+        if (!Template.dragging) return;
+
+        var e = window.event || e;
+        var top = Template.dragging.startY + (e.clientY - Template.dragging.mouseY);
+        var left = Template.dragging.startX + (e.clientX - Template.dragging.mouseX);
+        var right = left + Template.dragging.width;
+        var bottom = top + Template.dragging.height;
+
+        if(left <= Template.draggingProperties.container.left || right >= Template.draggingProperties.container.right){
+        }else{
+            element.style.left = (Math.max(0, left)) + "px";
+        }
+        if(top <= Template.draggingProperties.container.top || bottom >= Template.draggingProperties.container.bottom){
+        }else{
+            element.style.top = (Math.max(0, top)) + "px";
+        }
+    }, true);
+};
+Template.addDragging = function(){
+    if(! arguments[0] instanceof HTMLElement){
+        console.log('wrong input');
+        return false;
+    }
+    var element = arguments[0];
+    if(typeof arguments[1] != 'undefined'){
+        var props = arguments[1];
+    }
+    element.onmousedown = function(event){
+        var src = event.srcElement;
+        var clone = src.cloneNode(true);
+//        clone.style.position = 'absolute';
+//        clone.style.left = src.getBoundingClientRect().left + "px";
+//        clone.style.top = src.getBoundingClientRect().top + "px";
+        JF.templates.page.html.insertBefore(clone,JF.templates.page.html.firstChild);
+        var properties = {
+            container: JF.templates.page.html
+        }
+        Template.draggable(clone,properties);
+    }
+}
 Template.createEvents = function(){
     Object.defineProperty(arguments[0],'text',{
         enumerable:true,
@@ -383,6 +468,7 @@ Creator.prototype.element = function () {
     Define element, or parent element
      */
     if(typeof arguments[2] == 'undefined'){
+        delete this.class;
 	    if(typeof JF.templates == 'undefined'){
 		    Object.defineProperty(JF,'templates',{
                 value: {}
@@ -493,6 +579,12 @@ Creator.prototype.element = function () {
                     JF.templates[this.id].elements[elementName].prototype = Template.prototype;
                     Template.createEvents(JF.templates[this.id].elements[elementName]);
                 }
+            }
+        }
+        console.log()
+        if($object.hasOwnProperty('dragging')){
+            if($object['dragging']){
+                Template.addDragging(element);
             }
         }
         if(typeof doc !== 'undefined'){
