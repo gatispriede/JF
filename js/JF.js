@@ -45,6 +45,7 @@ var core = {
 		delete core;
 	},
 	createJF: function () {
+        JF.events = Object.create({});
 		JF.stringify = function(){
 			var $iteration = 0;
 			if(typeof arguments[1] !== 'undefined'){
@@ -284,66 +285,88 @@ Template.prototype.add = function(){
         $i++;
     }
 };
-Template.addListener = function(element, type, callback, capture) {
+JF.events.addListener = function(element, type, callback, capture) {
     if (element.addEventListener) {
         element.addEventListener(type, callback, capture);
     } else {
         element.attachEvent("on" + type, callback);
     }
 }
-Template.draggable = function(element,props) {
-    Template.dragging = null;
-    if(typeof props !== 'undefined'){
-        Template.draggingProperties = {
-            container: {
-                left: parseInt(props.container.getBoundingClientRect().left),
-                top: parseInt(props.container.getBoundingClientRect().top),
-                right: parseInt(props.container.getBoundingClientRect().right),
-                bottom: parseInt(props.container.getBoundingClientRect().bottom)
+Template.draggable = function(element,configuration) {
+    element.dragging = null;
+    if(configuration){
+        element.configuration = configuration;
+    }else{
+        element.configuration = {};
+    }
+    JF.events.addListener(element, "mousedown", function(e) {
+        if(typeof element.configuration ){
+            if(element.configuration.container !== 'undefined'){
+                element.configuration.container.style.float = 'left';
+                var container = element.configuration.container.getBoundingClientRect();
+                element.container = {
+                    left: parseInt(container.left),
+                    top: parseInt(container.top),
+                    right: parseInt(container.right),
+                    bottom: parseInt(container.bottom),
+                    width: parseInt(container.width),
+                    height: parseInt(container.height)
+                }
+            }else{
+                var container = window.getBoundingClientRect();
+                element.container = {
+                    left: parseInt(container.left),
+                    top: parseInt(container.top),
+                    right: parseInt(container.right),
+                    bottom: parseInt(container.bottom),
+                    width: parseInt(container.width),
+                    height: parseInt(container.height)
+                }
             }
         }
-    }
-    Template.addListener(element, "mousedown", function(e) {
         var e = window.event || e;
-        element.style.position = 'absolute';
-        Template.dragging = {
+        element.style.position = 'relative';
+        element.style.float = 'left';
+        var elementDimensions = element.getBoundingClientRect();
+        element.dragging = {
             mouseX: e.clientX,
             mouseY: e.clientY,
-            startX: parseInt(element.style.left) || parseInt(element.getBoundingClientRect().left),
-            startY: parseInt(element.style.top) || parseInt(element.getBoundingClientRect().top),
-            width: parseInt(element.getBoundingClientRect().width),
+            startX: parseInt(elementDimensions.left),
+            startY: parseInt(elementDimensions.top),
+            width: parseInt(elementDimensions.width),
             height: parseInt(element.getBoundingClientRect().height)
         };
+        console.log([[element.dragging]])
         if (element.setCapture) element.setCapture();
-    });
+    },true);
 
-    Template.addListener(element, "losecapture", function() {
-        Template.dragging = null;
+    JF.events.addListener(element, "losecapture", function() {
+        element.dragging = null;
     });
-
-    Template.addListener(document, "mouseup", function(e) {
-        console.log(e)
-        Template.dragging = null;
+    JF.events.addListener(window, "mouseup", function(e) {
+        element.dragging = null;
+        element.removeEventListener('onmouseup');
+        dragTarget.removeEventListener('onmousmove');
     }, true);
 
     var dragTarget = element.setCapture ? element : window;
 
-    Template.addListener(dragTarget, "mousemove", function(e) {
-        if (!Template.dragging) return;
+    JF.events.addListener(dragTarget, "mousemove", function(e) {
+        if (!element.dragging) return;
 
         var e = window.event || e;
-        var top = Template.dragging.startY + (e.clientY - Template.dragging.mouseY);
-        var left = Template.dragging.startX + (e.clientX - Template.dragging.mouseX);
-        var right = left + Template.dragging.width;
-        var bottom = top + Template.dragging.height;
+        var top = e.clientY - element.container.top - (element.getBoundingClientRect().height / 2 );
+        var left = e.clientX - element.container.left - (element.getBoundingClientRect().width / 2 );
+        var right = left + element.dragging.width;
+        var bottom = top + element.dragging.height;
 
-        if(left <= Template.draggingProperties.container.left || right >= Template.draggingProperties.container.right){
+        if(right >= element.container.width || left <= 0 ){
         }else{
-            element.style.left = (Math.max(0, left)) + "px";
+            element.style.left = (left / element.container.width * 100) + "%";
         }
-        if(top <= Template.draggingProperties.container.top || bottom >= Template.draggingProperties.container.bottom){
+        if(bottom >= element.container.height || top <= 0){
         }else{
-            element.style.top = (Math.max(0, top)) + "px";
+            element.style.top = (top / element.container.height * 100) + "%";
         }
     }, true);
 };
@@ -581,7 +604,6 @@ Creator.prototype.element = function () {
                 }
             }
         }
-        console.log()
         if($object.hasOwnProperty('dragging')){
             if($object['dragging']){
                 Template.addDragging(element);
