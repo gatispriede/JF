@@ -703,69 +703,33 @@ Creator.fillTemplate = function() {
     if (typeof arguments[0] !== 'object' || typeof arguments[1] === 'undefined') {
 		JF.debug('Creator.fillTemplate: Wrong input arguments',arguments);
 		return ;
-	}
-    this.generateElements = function(base, input) {
+    }
+    var self = this;
+    self.fillObject = function(base, input, parent) {
         var id;
-        var type = base.element;
-        switch (type) {
-            case('ol'):
-                for(id in input){
-                    if (typeof input[id] === 'function') {
-                        continue;
-                    }
-                    if (typeof input[id] === 'object') {
-                        base[id] = input[id];
-                    }
-                    if(base[id]['element']){
-                        base[id]['element'] = 'li';
-                    }
-                }
-                return base;
-            case('table'):
-                for(id in input){
-                    if (typeof input[id] === 'function') {
-                        continue;
-                    }
-                    if (typeof input[id] === 'object') {
-                        base[id] = input[id];
-                    }
-                    if(base[id]['element']){
-                        base[id]['element'] = 'td';
-                    }
-                }
-                return base;
-            case('div'):
-                for(id in input){
-                    if (typeof input[id] === 'function') {
-                        continue;
-                    }
-                    if (typeof input[id] === 'object') {
-                        base[id] = input[id];
-                    }
-                    if(base[id]['element']){
-                        base[id]['element'] = 'span';
-                    }
-                }
-                return base;
-            default :
-                return input;
+        for (id in input) {
+            self.updateObject(base, input[id]);
         }
+        var clone = base.cloneNode(true);
+
+        parent.appendChild(clone);
     };
-    this.updateObject = function(base, name, value) {
+    self.updateObject = function(base, name, value) {
         var key;
+        var self = this;
         if(base.hasOwnProperty('name')){
             if(base.name === name){
                 if (typeof value === 'string' || typeof value === 'number') {
                     base.text = value.toLocaleString();
                 } else if (typeof value === 'object') {
-                    base = this.generateElements(base,value);
+                    base = self.fillObject(base, value);
                 }
             }
         }
         for(key in base){
             if (typeof base[key] === 'object') {
                 if (typeof base[key].nodeType === 'undefined') {
-                    this.updateObject(base[key],name,value);
+                    self.updateObject(base[key], name, value);
                 }else{
                     if (base[key].name === name) {
                         base[key].text = value;
@@ -774,8 +738,9 @@ Creator.fillTemplate = function() {
             }
         }
     };
-    this.iterateOverrides = function(base, overrides) {
+    self.iterateOverrides = function(base, overrides) {
         var id;
+        var self = this;
         for(id in overrides){
             if(overrides.hasOwnProperty(id) && typeof overrides[id] !== 'function' ){
                 var name = id;
@@ -785,19 +750,20 @@ Creator.fillTemplate = function() {
                         if (typeof value === 'string' || typeof value === 'number') {
                             base.text = String(value);
                         } else if (typeof value === 'object') {
-                            base = this.generateElements(base, this.parent, value);
+                            base = self.fillObject(base, self.parent, value);
                         }
                     }
                 }
-                this.parent = base;
-                this.updateObject(base,name,value);
+                self.parent = base;
+                self.updateObject(base, name, value);
             }
         }
     };
-    this.convertToObject = function(){
+    self.convertToObject = function() {
+        var self = this;
         try{
             var overrides = JSON.parse(arguments[1]);
-            this.iterateOverrides(arguments[0],overrides);
+            self.iterateOverrides(arguments[0], overrides);
         }catch(error){
             console.warn(error);
         }
@@ -807,7 +773,7 @@ Creator.fillTemplate = function() {
     this.convertToObject(arguments[0],arguments[1])
         : $mode === 'object' ?
     this.iterateOverrides(arguments[0],arguments[1])
-            : console.warn('non defined input');
+        : console.warn('non defined input');
 };
 Creator.init = function(){
     /*
