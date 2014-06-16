@@ -785,16 +785,17 @@ Creator.init = function(){
         defer: 'defer',
         type: 'text/css'
     };
-    var templates = {
-        id: 'templates',
-        element: 'script',
-        defer: 'defer',
-        src: 'templates/index.js',
-        type: 'application/x-javascript'
-    };
-    Creator(templates,style);
+//    var templates = {
+//        id: 'templates',
+//        element: 'script',
+//        defer: 'defer',
+//        src: 'templates/index.js',
+//        type: 'application/x-javascript'
+//    };
+//    Creator(templates);
+    Creator(style);
     var head = document.getElementsByTagName('head')[0];
-    head.insertBefore(JF.templates.templates.html,head.childNodes[0]);
+//    head.insertBefore(JF.templates.templates.html,head.childNodes[0]);
     head.insertBefore(JF.templates.style.html,head.childNodes[0]);
     delete JF.templates.templates;
 };
