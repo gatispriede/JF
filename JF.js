@@ -4,7 +4,7 @@
 var JF = function(){};
 JF.debug = function(){
     if(typeof arguments[0] !== 'undefined'){
-        if(typeof JF.debug.items == 'undefined'){
+        if (typeof JF.debug.items === 'undefined') {
             JF.debug.items = {};
         }
         JF.debug.items[Date()] = {
@@ -14,24 +14,7 @@ JF.debug = function(){
         return true;
     }
     return (JF.debug.items);
-}
-var filters = function(){};
-Object.defineProperty(filters,'tags',{
-    enumerable: true,
-    configurable: false,
-    set: function(){
-        if(type(arguments[0]) == 'string'){
-            if(arguments[0].test(this.tags)){
-                this.tags =+ arguments[0] + ';';
-            }
-        }else{
-            return ;
-        }
-    },
-    get: function(){
-        return this.tags;
-    }
-});
+};
 var core = {
 	init: function () {
 		core.createJF ();
@@ -73,7 +56,7 @@ var core = {
 			return $result;
 		};
 		JF.private = function () {
-			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
+            if (typeof arguments[0] === 'undefined' || typeof arguments[1] === 'undefined' || typeof arguments[2] === 'undefined') {
 				return false;
 			}
 			Object.defineProperty ( arguments[0], arguments[1], {
@@ -85,7 +68,7 @@ var core = {
 			//			console.warn ( 'Add read-only property ' + arguments[1] );
 		};
 		JF.public = function () {
-			if ( typeof arguments[0] == 'undefined' || typeof arguments[1] == 'undefined' || typeof arguments[2] == 'undefined' ) {
+            if (typeof arguments[0] === 'undefined' || typeof arguments[1] === 'undefined' || typeof arguments[2] === 'undefined') {
 				return false;
 			}
 			Object.defineProperty ( arguments[0], arguments[1], {
@@ -103,12 +86,12 @@ var core = {
 	},
 	createGlobalFunctions: function () {
 		function Global() {
-			var object = arguments[0]
-			if( typeof object == 'undefined' ){
+            var object = arguments[0];
+            if (typeof object === 'undefined') {
 				return false;
-			}else if( typeof object == 'object' && typeof object.value !== 'undefined' && typeof object.name !== 'undefined' ){
+            } else if (typeof object === 'object' && typeof object.value !== 'undefined' && typeof object.name !== 'undefined') {
 				JF.public( this , object.name , object.value );
-				if(typeof JF.global == 'undefined'){
+                if (typeof JF.global === 'undefined') {
 					JF.public ( JF, 'global', [] );
 				}
 				JF.global.push ( object.name );
@@ -120,7 +103,7 @@ var core = {
 		var global = {
 			name: 'log',
 			value: function(){
-				console.log(arguments)
+                console.log(arguments);
 			}
 		};
 		Global(global);
@@ -137,9 +120,9 @@ var core = {
 		global = {
 			name: 'type',
 			value:function () {
-				if ( typeof arguments[1] == 'undefined' ) {
+                if (typeof arguments[1] === 'undefined') {
 					return ({}).toString.call ( arguments[0] ).match ( /\s([a-zA-Z]+)/ )[1].toLowerCase ();
-				} else if ( type ( arguments[0] ) == String ( '' + arguments[1] ) ) {
+                } else if (type(arguments[0]) === String('' + arguments[1])) {
 					return true;
 				}
 				return false;
@@ -221,8 +204,8 @@ var core = {
 		global = {
 			name: 'inside',
 			value: function () {//checks if element is inside window
-				if ( typeof arguments[0] == 'undefined' ) {
-					return false
+                if (typeof arguments[0] === 'undefined') {
+                    return false;
 				}
 				if ( document.all[0].clientHeight - arguments[0] < 0 ) {
 					return false;
@@ -233,7 +216,7 @@ var core = {
 		};
 		Global(global);
 	}
-}
+};
 if ( !Object.prototype.watch ) {
 	Object.defineProperty ( Object.prototype, "watch",
 		{
@@ -272,9 +255,9 @@ if ( !Object.prototype.unwatch ) {// object.unwatch
 }
 core.init ();
 var Template = function(){};
-Template.prototype = Object.prototype;
-Template.prototype.add = function(){
-    if( typeof arguments[0] == 'undefined' ){
+Template = new Object({});
+Template.add = function(){
+    if (typeof arguments[0] === 'undefined') {
         return false;
     }
     var $input = {};
@@ -291,7 +274,7 @@ JF.events.addListener = function(element, type, callback, capture) {
     } else {
         element.attachEvent("on" + type, callback);
     }
-}
+};
 Template.draggable = function(element,configuration) {
     element.dragging = null;
     if(configuration){
@@ -311,7 +294,7 @@ Template.draggable = function(element,configuration) {
                     bottom: parseInt(container.bottom),
                     width: parseInt(container.width),
                     height: parseInt(container.height)
-                }
+                };
             }else{
                 var container = window.getBoundingClientRect();
                 element.container = {
@@ -321,7 +304,7 @@ Template.draggable = function(element,configuration) {
                     bottom: parseInt(container.bottom),
                     width: parseInt(container.width),
                     height: parseInt(container.height)
-                }
+                };
             }
         }
         var e = window.event || e;
@@ -336,7 +319,6 @@ Template.draggable = function(element,configuration) {
             width: parseInt(elementDimensions.width),
             height: parseInt(element.getBoundingClientRect().height)
         };
-        console.log([[element.dragging]])
         if (element.setCapture) element.setCapture();
     },true);
 
@@ -376,7 +358,7 @@ Template.addDragging = function(){
         return false;
     }
     var element = arguments[0];
-    if(typeof arguments[1] != 'undefined'){
+    if (typeof arguments[1] !== 'undefined') {
         var props = arguments[1];
     }
     element.onmousedown = function(event){
@@ -388,18 +370,18 @@ Template.addDragging = function(){
         JF.templates.page.html.insertBefore(clone,JF.templates.page.html.firstChild);
         var properties = {
             container: JF.templates.page.html
-        }
+        };
         Template.draggable(clone,properties);
-    }
-}
+    };
+};
 Template.createEvents = function(){
     Object.defineProperty(arguments[0],'text',{
         enumerable:true,
         configurable: true,
         set: function(){
-            if(typeof arguments[0] == 'string'){
+            if (typeof arguments[0] === 'string') {
                 this.childNodes[0].textContent = arguments[0];
-            }else if(typeof arguments[0] == 'object'){
+            } else if (typeof arguments[0] === 'object') {
                 this.appendChild(Creator(arguments[0]));
             }
 
@@ -421,7 +403,7 @@ Template.createEvents = function(){
     arguments[0].prototype.filters = filters;
 };
 var Creator = function() {
-    if( typeof arguments[0] == 'undefined' ){
+    if (typeof arguments[0] === 'undefined') {
         return false;
     }
     var $parent = {};
@@ -446,7 +428,8 @@ var Creator = function() {
 Creator.prototype = Object.prototype;
 Creator.prototype.clone = function() {
 	// Handle the 3 simple types, and null or undefined
-	if (null == arguments[0] || "object" != typeof arguments[0]) return arguments[0];
+    if (null === arguments[0] || "object" !== typeof arguments[0])
+        return arguments[0];
 
 	// Handle Date
 	if (arguments[0] instanceof Date) {
@@ -468,7 +451,7 @@ Creator.prototype.clone = function() {
 	if (arguments[0] instanceof Object) {
 		var copy = {};
 		for (var attr in arguments[0]) {
-			if(typeof arguments[0][attr] == 'string'){
+            if (typeof arguments[0][attr] === 'string') {
 				copy[attr] = arguments[0][attr];
 			}else{
 				if(arguments[0].hasOwnProperty(attr)) copy[attr] = Creator.clone(arguments[0][attr]);
@@ -478,8 +461,8 @@ Creator.prototype.clone = function() {
 	}
 
 	throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-Creator.prototype.element = function () {
+};
+Creator.element = function () {
     if(typeof arguments[0] !== 'object'){
         return ;
     }
@@ -487,22 +470,23 @@ Creator.prototype.element = function () {
     var element;
     var ruleName;
     var $rule;
+    var $key;
     /*
     Define element, or parent element
      */
-    if(typeof arguments[2] == 'undefined'){
+    if (typeof arguments[2] === 'undefined') {
         delete this.class;
-	    if(typeof JF.templates == 'undefined'){
+        if (typeof JF.templates === 'undefined') {
 		    Object.defineProperty(JF,'templates',{
                 value: {}
             });
 	    }
-        if($object.override == true && typeof $object.id !== 'undefined' && JF.templates[$object.id]) {
+        if ($object.override === true && typeof $object.id !== 'undefined' && JF.templates[$object.id]) {
             JF.templates[$object.id].template.remove();
         }
-        if(typeof $object.id == 'undefined'){
+        if (typeof $object.id === 'undefined') {
             $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
-        }else if(typeof JF.templates[$object.id] !== 'undefined' && $object.override != true ){
+        } else if (typeof JF.templates[$object.id] !== 'undefined' && $object.override !== true) {
 	        $object.id = ( Math.floor(Math.random()*1000) ) + Date.now();
         }
         this.id = $object.id;
@@ -524,22 +508,22 @@ Creator.prototype.element = function () {
     /*
     Apply properties to element
      */
-    if (typeof $object == 'object') {
+    if (typeof $object === 'object') {
         typeof $object.class !== 'undefined' ? this.class = $object.class: '';
         typeof $object.id !== 'undefined' ? element.name = $object.id : '';
         for($key in $object) {
-            if(typeof $object[$key] == 'undefined'){
+            if (typeof $object[$key] === 'undefined') {
                 break;
             }
             typeof $object[$key].class !== 'undefined' ? this.class = $object[$key].class : '';
-            if (typeof $object[$key] == 'string' || typeof $object[$key] == 'function') {
+            if (typeof $object[$key] === 'string' || typeof $object[$key] === 'function') {
                 switch ($key){
                     case('text'):
                         element['textContent'] = $object[$key];
                         break;
                     case('inlineStyle'):
                         try{
-                            var inlineRule = $object[$key].split(':')
+                            var inlineRule = $object[$key].split(':');
                             element.style[inlineRule[0]] = inlineRule[1];
                         }catch(error){
                             console.log(error);
@@ -566,8 +550,8 @@ Creator.prototype.element = function () {
                         element[$key] = $object[$key];
                         break;
                 }
-            }else if(typeof $object[$key] == 'object'){
-                if($key == 'style'){
+            } else if (typeof $object[$key] === 'object') {
+                if ($key === 'style') {
                     if(typeof $object.class !== 'undefined'){
                         ruleName = " ." + $object.class.replace(' ','.');
                     }else{
@@ -581,7 +565,7 @@ Creator.prototype.element = function () {
                     }
                     $rule += "}";
                     JFstyle.insertRule($rule,0);
-                }else if($key == 'inlineStyle'){
+                } else if ($key === 'inlineStyle') {
                     for(rule in $object[$key]){
                         if(typeof $object[$key][rule] !== 'function'){
                             try{
@@ -618,8 +602,9 @@ Creator.prototype.element = function () {
     }
     return false;
 };
-Creator.prototype.createTemplate = function($input){
-	if(typeof arguments[1] == 'undefined'){
+Creator.createTemplate = function($input) {
+    var $key, $attribute;
+    if (typeof arguments[1] === 'undefined') {
 		var $return = {};
 		var $iteration = 0;
 	}else{
@@ -628,8 +613,8 @@ Creator.prototype.createTemplate = function($input){
 	if($input instanceof HTMLElement){
 		$return = {
 			element: $input.localName,
-			text: typeof $input.childNodes[0] == 'undefined' ? '' : $input.childNodes[0].textContent
-		}
+            text: typeof $input.childNodes[0] === 'undefined' ? '' : $input.childNodes[0].textContent
+        };
 		typeof $input.name !== 'undefined' ? $return.name = $input.name : '';
 		for($attribute in $input.attributes){
 			if($input.attributes.hasOwnProperty($attribute) && $attribute !== 'length'){
@@ -640,7 +625,7 @@ Creator.prototype.createTemplate = function($input){
 		}
 		for($key in $input.childNodes){
 			if($input.childNodes.hasOwnProperty($key) && $key !== 'length'){
-				if($input.childNodes[$key].nodeType == 1){
+                if ($input.childNodes[$key].nodeType === 1) {
 					$iteration++;
 					$return[$iteration] = Creator.createTemplate($input.childNodes[$key],$iteration);
 				}
@@ -648,12 +633,13 @@ Creator.prototype.createTemplate = function($input){
 		}
 	}
 	return $return;
-}
-Creator.prototype.indexElements = function($input,$parent){
-	if(typeof $parent == 'undefined'){
+};
+Creator.indexElements = function($input, $parent) {
+    var $key;
+    if (typeof $parent === 'undefined') {
 		$parent = {};
 	}
-	if(typeof arguments[2] == 'undefined'){
+    if (typeof arguments[2] === 'undefined') {
 		var $iteration = 0;
 	}else{
 		$iteration = arguments[2];
@@ -661,18 +647,18 @@ Creator.prototype.indexElements = function($input,$parent){
 	if($input instanceof HTMLElement){
 		for($key in $input.childNodes){
 			if($input.childNodes.hasOwnProperty($key) && $key !== 'length'){
-				if($input.childNodes[$key].nodeType == 1){
+                if ($input.childNodes[$key].nodeType === 1) {
 					$parent[$iteration] = $input.childNodes[$key];
 					$iteration++;
-					Creator.indexElements($input.childNodes[$key],$parent,$iteration)
+                    Creator.indexElements($input.childNodes[$key], $parent, $iteration);
 				}
 			}
 		}
 	}
 	return $parent;
-}
-Creator.prototype.indexHtml = function(){
-	if(arguments[0] == 'undefined'){
+};
+Creator.indexHtml = function(){
+    if (arguments[0] === 'undefined') {
 		return ;
 	}
 	var $i = 0;
@@ -684,29 +670,30 @@ Creator.prototype.indexHtml = function(){
 			html: $input,
 			name: $input.id || Date.now() + Math.random() * 1000,
 			template: Creator.createTemplate($input)
-		}
+        };
 		$i++;
 		$input = arguments[$i];
 	}
-}
+};
 /*
 	1 argument(@object) = template which needs to be filled
 	2 argument(@object/@string/@json)
  */
-Creator.prototype.fillTemplate = function () {
-	if(typeof arguments[0] !== 'object' || typeof arguments[1] == 'undefined'){
+Creator.fillTemplate = function() {
+    if (typeof arguments[0] !== 'object' || typeof arguments[1] === 'undefined') {
 		JF.debug('Creator.fillTemplate: Wrong input arguments',arguments);
 		return ;
 	}
-    this.generateElements = function(base,input){
+    this.generateElements = function(base, input) {
+        var id;
         var type = base.element;
         switch (type) {
             case('ol'):
                 for(id in input){
-                    if(typeof input[id] == 'function'){
+                    if (typeof input[id] === 'function') {
                         continue;
                     }
-                    if(typeof input[id] == 'object'){
+                    if (typeof input[id] === 'object') {
                         base[id] = input[id];
                     }
                     if(base[id]['element']){
@@ -716,10 +703,10 @@ Creator.prototype.fillTemplate = function () {
                 return base;
             case('table'):
                 for(id in input){
-                    if(typeof input[id] == 'function'){
+                    if (typeof input[id] === 'function') {
                         continue;
                     }
-                    if(typeof input[id] == 'object'){
+                    if (typeof input[id] === 'object') {
                         base[id] = input[id];
                     }
                     if(base[id]['element']){
@@ -729,10 +716,10 @@ Creator.prototype.fillTemplate = function () {
                 return base;
             case('div'):
                 for(id in input){
-                    if(typeof input[id] == 'function'){
+                    if (typeof input[id] === 'function') {
                         continue;
                     }
-                    if(typeof input[id] == 'object'){
+                    if (typeof input[id] === 'object') {
                         base[id] = input[id];
                     }
                     if(base[id]['element']){
@@ -743,39 +730,41 @@ Creator.prototype.fillTemplate = function () {
             default :
                 return input;
         }
-    }
-    this.updateObject = function(base,name,value){
+    };
+    this.updateObject = function(base, name, value) {
+        var key;
         if(base.hasOwnProperty('name')){
             if(base.name === name){
-                if(typeof value == 'string' || typeof value == 'number'){
+                if (typeof value === 'string' || typeof value === 'number') {
                     base.text = value.toLocaleString();
-                }else if(typeof value == 'object'){
+                } else if (typeof value === 'object') {
                     base = this.generateElements(base,value);
                 }
             }
         }
         for(key in base){
-            if(typeof base[key] == 'object'){
-                if(typeof base[key].nodeType == 'undefined'){
+            if (typeof base[key] === 'object') {
+                if (typeof base[key].nodeType === 'undefined') {
                     this.updateObject(base[key],name,value);
                 }else{
-                    if(base[key].name == name){
+                    if (base[key].name === name) {
                         base[key].text = value;
                     }
                 }
             }
         }
-    }
-    this.iterateOverrides = function(base,overrides){
+    };
+    this.iterateOverrides = function(base, overrides) {
+        var id;
         for(id in overrides){
             if(overrides.hasOwnProperty(id) && typeof overrides[id] !== 'function' ){
                 var name = id;
                 var value = overrides[id];
                 if(base.hasOwnProperty('name')){
                     if(base.name === name){
-                        if(typeof value == 'string' || typeof value == 'number'){
+                        if (typeof value === 'string' || typeof value === 'number') {
                             base.text = value.toLocaleString();
-                        }else if(typeof value == 'object'){
+                        } else if (typeof value === 'object') {
                             base = this.generateElements(base,value);
                         }
                     }
@@ -783,27 +772,27 @@ Creator.prototype.fillTemplate = function () {
                 this.updateObject(base,name,value);
             }
         }
-    }
+    };
     this.convertToObject = function(){
         try{
-            var overrides = JSON.parse(arguments[1])
+            var overrides = JSON.parse(arguments[1]);
             this.iterateOverrides(arguments[0],overrides);
         }catch(error){
             console.warn(error);
         }
-    }
+    };
 	var $mode = typeof arguments[1];
-	$mode == 'string' ?
+    $mode === 'string' ?
 
         this.convertToObject(arguments[0],arguments[1])
 
-    : $mode == 'object' ?
+            : $mode === 'object' ?
 
         this.iterateOverrides(arguments[0],arguments[1])
 
     : console.warn('non defined input');
 };
-Creator.prototype.init = function(){
+Creator.init = function(){
     /*
      INITIALIZATION
      */
@@ -825,7 +814,7 @@ Creator.prototype.init = function(){
     head.insertBefore(JF.templates.templates.html,head.childNodes[0]);
     head.insertBefore(JF.templates.style.html,head.childNodes[0]);
     delete JF.templates.templates;
-}
+};
 Creator.init();
 Object.defineProperty(this,'JFstyle',{
     enumerable:true,
@@ -845,31 +834,31 @@ JF.createEvents = function () {
         status: false
     };
     setMouseCoordinates = function(event){
-        JF.mouse.status = 'moving'
+        JF.mouse.status = 'moving';
         JF.mouse.x = event.x;
         JF.mouse.y = event.y;
         JF.mouse.event = event;
-    }
+    };
     setTouchCoordinates = function(event){
-        JF.touch.status = 'moving'
+        JF.touch.status = 'moving';
         JF.touch.x = event.x;
         JF.touch.y = event.y;
         JF.touch.event = event;
-    }
+    };
     setMouseIdle = function(){
-        JF.mouse.status = 'idle'
-    }
+        JF.mouse.status = 'idle';
+    };
     window.touchstart = function(event){
-        JF.touch.status = 'down'
+        JF.touch.status = 'down';
     };
     window.touchend = function(event){
-        JF.touch.status = 'up'
+        JF.touch.status = 'up';
     };
     window.touchenter = function(event){
-        JF.touch.status = 'enter'
+        JF.touch.status = 'enter';
     };
     window.touchleave = function(event){
-        JF.touch.status = 'leave'
+        JF.touch.status = 'leave';
     };
     window.touchmove = function (event) {
         this.setTouchCoordinates(event);
@@ -880,28 +869,28 @@ JF.createEvents = function () {
         setTimeout(setMouseIdle,100);
     };
     window.onmouseenter = function(){
-        JF.mouse.state = 'enter'
+        JF.mouse.state = 'enter';
         setTimeout(setMouseIdle,100);
     };
     window.onmousedown = function(){
-        JF.mouse.status = 'down'
+        JF.mouse.status = 'down';
         setTimeout(setMouseIdle,100);
     };
     window.onmouseup = function(){
-        JF.mouse.status = 'up'
+        JF.mouse.status = 'up';
         setTimeout(setMouseIdle,100);
     };
     window.onmouseleave = function(){
-        JF.mouse.state = 'leave'
+        JF.mouse.state = 'leave';
         setTimeout(setMouseIdle,100);
     };
 }
 (JF.initEvents = function(){
-    if(document.readyState == 'interactive'){
-        var time = setTimeout(JF.initEvents,100)
+    if (document.readyState === 'interactive') {
+        var time = setTimeout(JF.initEvents, 100);
     }else{
-        if(document.readyState == 'complete'){
+        if (document.readyState === 'complete') {
             JF.createEvents();
         }
     }
-}())
+}());
