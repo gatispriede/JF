@@ -23,7 +23,6 @@ var core = {
 		core.createGlobalFunctions.description = 'Creates Global functions';
 		JF.watch('status',JF.setStatus);
 		JF.status = "Done loading Framework";
-		console.warn ( 'JF is ready to roll!' );
 		core.init = null;
 		delete core;
 	},
@@ -233,11 +232,11 @@ if ( !Object.prototype.watch ) {
 						oldval = newval;
 						return newval = handler.call ( this, prop, oldval, val );
 					};
-				//                if ( delete this[prop] ) { // can't watch constants
-				//                    Object.defineProperty ( this, prop, {
-				//                        get: getter, set: setter, enumerable: true, configurable: true
-				//                    } );
-				//                }
+				                if ( delete this[prop] ) { // can't watch constants
+				                    Object.defineProperty ( this, prop, {
+				                        get: getter, set: setter, enumerable: true, configurable: true
+				                    } );
+				                }
 
 			}
 		} );
@@ -364,9 +363,6 @@ Template.addDragging = function(){
     element.onmousedown = function(event){
         var src = event.srcElement;
         var clone = src.cloneNode(true);
-//        clone.style.position = 'absolute';
-//        clone.style.left = src.getBoundingClientRect().left + "px";
-//        clone.style.top = src.getBoundingClientRect().top + "px";
         JF.templates.page.html.insertBefore(clone,JF.templates.page.html.firstChild);
         var properties = {
             container: JF.templates.page.html
@@ -374,33 +370,57 @@ Template.addDragging = function(){
         Template.draggable(clone,properties);
     };
 };
-Template.createEvents = function(){
-    Object.defineProperty(arguments[0],'text',{
-        enumerable:true,
-        configurable: true,
-        set: function(){
-            if (typeof arguments[0] === 'string') {
-                this.childNodes[0].textContent = arguments[0];
-            } else if (typeof arguments[0] === 'object') {
-                this.appendChild(Creator(arguments[0]));
-            }
+Template.createEvents = function() {
+    try {
+        Object.defineProperty(arguments[0], 'text', {
+            enumerable: true,
+            configurable: true,
+            set: function() {
+                if (typeof arguments[0] === 'string') {
+                    this.childNodes[0].textContent = arguments[0];
+                } else if (typeof arguments[0] === 'object') {
+                    this.appendChild(Creator(arguments[0]));
+                }
 
-        },
-        get: function(){
-            return this.childNodes[0].textContent;
-        }
-    });
-    Object.defineProperty(arguments[0],'class',{
-        enumerable:true,
-        configurable: true,
-        set: function(){
-            this.className = arguments[0];
-        },
-        get: function(){
-            return this.className;
-        }
-    });
-    arguments[0].prototype.filters = filters;
+            },
+            get: function() {
+                return this.childNodes[0].textContent;
+            }
+        });
+        Object.defineProperty(arguments[0], 'class', {
+            enumerable: true,
+            configurable: true,
+            set: function() {
+                this.className = arguments[0];
+            },
+            get: function() {
+                return this.className;
+            }
+        });
+    } catch (error) {
+        arguments[0]['text'] = (function() {
+            var self = this;
+            if (typeof arguments[0] === 'string') {
+                self.childNodes[0].textContent = arguments[0];
+            } else if (typeof arguments[0] === 'object') {
+                self.appendChild(Creator(arguments[0]));
+            } else {
+                if (self.childNodes) {
+                    return self.childNodes[0].textContent;
+                }
+            }
+        })();
+        arguments[0]['class'] = (function() {
+            var self = this;
+            if (typeof arguments[0] === 'string') {
+                self.childNodes[0].textContent = arguments[0];
+            } else if (typeof arguments[0] === 'object') {
+                self.appendChild(Creator(arguments[0]));
+            } else {
+                return self.className;
+            }
+        })();
+    }
 };
 var Creator = function() {
     if (typeof arguments[0] === 'undefined') {
@@ -763,12 +783,13 @@ Creator.fillTemplate = function() {
                 if(base.hasOwnProperty('name')){
                     if(base.name === name){
                         if (typeof value === 'string' || typeof value === 'number') {
-                            base.text = value.toLocaleString();
+                            base.text = String(value);
                         } else if (typeof value === 'object') {
-                            base = this.generateElements(base,value);
+                            base = this.generateElements(base, this.parent, value);
                         }
                     }
                 }
+                this.parent = base;
                 this.updateObject(base,name,value);
             }
         }
@@ -781,16 +802,12 @@ Creator.fillTemplate = function() {
             console.warn(error);
         }
     };
-	var $mode = typeof arguments[1];
+    var $mode = typeof arguments[1];
     $mode === 'string' ?
-
-        this.convertToObject(arguments[0],arguments[1])
-
-            : $mode === 'object' ?
-
-        this.iterateOverrides(arguments[0],arguments[1])
-
-    : console.warn('non defined input');
+    this.convertToObject(arguments[0],arguments[1])
+        : $mode === 'object' ?
+    this.iterateOverrides(arguments[0],arguments[1])
+            : console.warn('non defined input');
 };
 Creator.init = function(){
     /*
