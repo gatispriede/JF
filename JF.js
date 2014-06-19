@@ -614,8 +614,16 @@ Creator.element = function () {
             }
         }
         if(typeof doc !== 'undefined'){
-	        JF.templates[this.id].template = $object;
-            return JF.templates[this.id].html = element;
+            JF.templates[this.id].template = $object;
+            if ($object.save !== 'true' || $object.save !== true) {
+                if (typeof this.id !== 'string') {
+                    delete JF.templates[this.id];
+                } else {
+                    return JF.templates[this.id].html = element;
+                }
+            } else {
+                return JF.templates[this.id].html = element;
+            }
         }else {
             return element;
         }
@@ -775,6 +783,7 @@ Creator.fillTemplate = function() {
     this.iterateOverrides(arguments[0],arguments[1])
         : console.warn('non defined input');
 };
+
 Creator.init = function(){
     /*
      INITIALIZATION
