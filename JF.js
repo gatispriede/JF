@@ -450,8 +450,31 @@ var Creator = function() {
         $i++;
         $input = arguments[$i];
     }
-    return true;
+    if($i == 1){
+        return $element;
+    }else{
+        return true;
+    }
 };
+Creator.validAttributes = {
+    "innerText": "text",
+    "value": "value",
+    "localName": "element",
+    "inlineStyle": "style",
+    "name": "name",
+    "type": "type",
+    "class": "class",
+    "id": "id",
+    "className": "class",
+    "hidden": "hidden",
+    "draggable": "draggable",
+    "contentEditable": "contentEditable",
+    "onclick": "onclick",
+    "onchange": "onchange",
+    "data":"data",
+    "src":"src"
+//    "style":"style"
+}
 Creator.clone = function() {
     // Handle the 3 simple types, and null or undefined
     if (null === arguments[0] || "object" !== typeof arguments[0])
@@ -509,9 +532,9 @@ Creator.element = function() {
 //            JF.templates[$object.id].template.remove();
 //        }
         if (typeof $object.id === 'undefined') {
-            $object.id = (Math.floor(Math.random() * 1000)) + Date.now();
+            $object.id = "JF"+(Math.floor(Math.random() * 1000)) + Date.now()+"JF";
         } else if (typeof JF.templates[$object.id] !== 'undefined' && typeof $object.override == 'undefined') {
-            $object.id = (Math.floor(Math.random() * 1000)) + Date.now();
+            $object.id = "JF"+(Math.floor(Math.random() * 1000)) + Date.now()+"JF";
         }
         this.id = $object.id;
         JF.templates[this.id] = {
@@ -641,7 +664,9 @@ Creator.element = function() {
 Creator.createTemplate = function($input) {
     var $key, $attribute;
     if (typeof arguments[1] === 'undefined') {
-        var $return = {};
+        var $return = {
+            id: $input.id
+        };
         var $iteration = 0;
     } else {
         $iteration = arguments[1];
@@ -652,18 +677,26 @@ Creator.createTemplate = function($input) {
             text: typeof $input.childNodes[0] === 'undefined' ? '' : $input.childNodes[0].textContent
         };
         typeof $input.name !== 'undefined' ? $return.name = $input.name : '';
-        for ($attribute in $input.attributes) {
-            if ($input.attributes.hasOwnProperty($attribute) && $attribute !== 'length') {
-                var name = $input.attributes[$attribute].nodeName;
-                var value = $input.attributes[$attribute].textContent;
-                $return[name] = value;
+        $input;
+        for ($attribute in $input) {
+            if ($input.hasOwnProperty($attribute) && Creator.validAttributes.hasOwnProperty($attribute) && $input[$attribute] !== null ) {
+                if($attribute === 'style'){
+                    var value = $input[$attribute].cssText;
+                    var name = "inlineStyle";
+                    $return[$attribute] = value;
+                }else{
+                    var value = $input[$attribute];
+                    var name = Creator.validAttributes[$attribute];
+                    $return[name] = value;
+                }
+
             }
         }
         for ($key in $input.childNodes) {
             if ($input.childNodes.hasOwnProperty($key) && $key !== 'length') {
                 if ($input.childNodes[$key].nodeType === 1) {
                     $iteration++;
-                    $return[$iteration] = Creator.createTemplate($input.childNodes[$key], $iteration);
+                    $return["tmp-" + $iteration] = Creator.createTemplate($input.childNodes[$key], $iteration);
                 }
             }
         }
@@ -684,9 +717,9 @@ Creator.indexElements = function($input, $parent) {
         for ($key in $input.childNodes) {
             if ($input.childNodes.hasOwnProperty($key) && $key !== 'length') {
                 if ($input.childNodes[$key].nodeType === 1) {
-                    $parent[$iteration] = $input.childNodes[$key];
-                    $iteration++;
+                    $parent["tmp-" + $iteration] = $input.childNodes[$key];
                     Creator.indexElements($input.childNodes[$key], $parent, $iteration);
+                    $iteration++;
                 }
             }
         }
@@ -697,22 +730,32 @@ Creator.indexHtml = function() {
     if (arguments[0] === 'undefined') {
         return;
     }
+    if (arguments[1] === 'undefined') {
+        var id = Math.round(Date.now() + Math.random() * 1000);
+    }else{
+        var id = arguments[1];
+    }
     var $i = 0;
     var $template = {};
     var $input = arguments[$i];
+    $input.id = id;
     while ($input instanceof HTMLElement) {
         $template = {
             elements: Creator.indexElements($input),
             html: $input,
-            name: $input.id || Math.round(Date.now() + Math.random() * 1000),
+            override: true,
+            name: id || Math.round(Date.now() + Math.random() * 1000),
             template: Creator.createTemplate($input)
         };
         JF.templates[$template.name] = $template;
-        console.warn("Created Object,'JF.templates." + $template.name + "': ", JF.templates[$template.name])
+//        console.warn("Created Object,'JF.templates." + $template.name + "': ", JF.templates[$template.name])
         $i++;
         $input = arguments[$i];
     }
-    return true;
+    if(typeof $template !== 'undefined'){
+        return $template;
+    }
+    return false;
 };
 /*
  1 argument(@object) = template which needs to be filled
