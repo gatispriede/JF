@@ -20,7 +20,7 @@ Advantages
 4. Native code
 5. Fastest html builder ever created
 6. Template accepts functions
-7. No Selector framework is need (example: jQuery) is needed because all templates arr linked within javscript in JF.templates array
+7. No Selector framework (example: jQuery) is needed because all templates arr linked within javscript in JF.templates array
 
 Basic Template object
 =
