@@ -2,8 +2,9 @@ JF
 ==
 
 Javascript framework / library - all in one JS,HTML,STYLE.
+```
 Version = 1.0.0
-
+```
 Welcome to JF.js
 =
 
