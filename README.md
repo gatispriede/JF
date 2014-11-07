@@ -31,9 +31,13 @@ sample = {
     id: "sampleId",
     class: "sampleClass",
     text: "Sample text"
-}```
+}
+```
 
-Will create: ```<div class="sampleClass" id="sampleId">Sample text</div>```
+Will create: 
+```
+<div class="sampleClass" id="sampleId">Sample text</div>
+```
 
 Available properties
 =
