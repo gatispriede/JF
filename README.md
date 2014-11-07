@@ -32,14 +32,14 @@ sample = {
     text: "Sample text"
 }
 
-Will create: <div class="sampleClass" id="sampleId">Sample text</div>
+Will create: < div class="sampleClass" id="sampleId">Sample text</div>"
 
 Basic Usage
 =
 
 Creator(document.body,sample)
 
-What is did?
+What it did?
 
 1. Appended to document.body Element the templates resulting HTML
 2. Create above template and stored the template in JF.templates array with following ID as a key.
@@ -85,7 +85,7 @@ returns true / false
 Advanced examples
 =
 
-sampleObject = {
+`sampleObject = {
   element: "div",
   id: "about",
   title: {
@@ -114,19 +114,19 @@ sampleObject = {
   	element: "p",
         text: "sampleText"
   }
-}
+}`
 
 After execution will result in
 
-<div id="about">
+`< div id="about">
 <h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
 <h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
 <p>sampleText</p>
-</div>
+</div>`
 
 Simple navigation example
 
-sampleNavigation = {
+`sampleNavigation = {
   element:'div',
   id:'navigation',
   style:{
@@ -187,15 +187,15 @@ sampleNavigation = {
       text:"contacts"
     }
   }
-}
+}`
 
 Will result in:
 
-<div id="navigation">
+`< div id="navigation">
     <div class="div">
         <button class="active">about</button>
         <button class="">pictures</button>
         <button class="">programming</button>
         <button>contacts</button>
     </div>
-</div>
+</div>`
