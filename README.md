@@ -1,4 +1,10 @@
+JF
+==
+
+Javascript framework / library - all in one JS,HTML,STYLE.
+
 Welcome to JF.js
+=
 
 JF is Framework / Library all in one place.
 JF works with json type of structured javascript objects and converts that into HTML5.
@@ -6,6 +12,7 @@ You can create rich templates which after JF execution creates HTML with JS and 
 All that you need to work with JF framework is to add JF file, no other dependencies.
 
 Advantages
+=
 
 1. All in one template - js, html, style
 2. Simple usage
@@ -16,6 +23,7 @@ Advantages
 7. No Selector framework is need (example: jQuery) is needed because all templates arr linked within javscript in JF.templates array
 
 Basic Template object
+=
 
 sample = {
     element: "div",
@@ -24,13 +32,14 @@ sample = {
     text: "Sample text"
 }
 
-Will create: <div class="sampleClass" id="sampleId">Sample text</div>
+Will create: < div class="sampleClass" id="sampleId">Sample text</div>"
 
 Basic Usage
+=
 
 Creator(document.body,sample)
 
-What is did?
+What it did?
 
 1. Appended to document.body Element the templates resulting HTML
 2. Create above template and stored the template in JF.templates array with following ID as a key.
@@ -44,6 +53,7 @@ What is did?
     template:       Object          the template object itself with which the template was created
 
 Usage Description
+=
 
 There are 3 global javascript functions: "Creator", "JFstyle" and "Controller" which handles actions for template objects
 
@@ -73,8 +83,9 @@ has 1 function .addStyle(String $style)
 returns true / false
 
 Advanced examples
+=
 
-sampleObject = {
+`sampleObject = {
   element: "div",
   id: "about",
   title: {
@@ -103,19 +114,19 @@ sampleObject = {
   	element: "p",
         text: "sampleText"
   }
-}
+}`
 
 After execution will result in
 
-<div id="about">
-<h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
-<h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
-<p>sampleText</p>
-</div>
+`< div id="about">
+< h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
+< h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
+< p>sampleText</p>
+</div>`
 
 Simple navigation example
 
-sampleNavigation = {
+`sampleNavigation = {
   element:'div',
   id:'navigation',
   style:{
@@ -176,15 +187,15 @@ sampleNavigation = {
       text:"contacts"
     }
   }
-}
+}`
 
 Will result in:
 
-<div id="navigation">
-    <div class="div">
-        <button class="active">about</button>
-        <button class="">pictures</button>
-        <button class="">programming</button>
-        <button>contacts</button>
+`< div id="navigation">
+    < div class="div">
+        < button class="active">about</button>
+        < button class="">pictures</button>
+        < button class="">programming</button>
+        < button>contacts</button>
     </div>
-</div>
+</div>`
