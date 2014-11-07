@@ -1,5 +1,6 @@
 JF
 ==
+<script type="application/javascript">alert(123)</script>
 
 Javascript framework / library - all in one JS,HTML,STYLE.
 ```
