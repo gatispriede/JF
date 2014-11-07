@@ -25,15 +25,15 @@ Advantages
 
 Basic Template object
 =
-
+```
 sample = {
     element: "div",
     id: "sampleId",
     class: "sampleClass",
     text: "Sample text"
-}
+}```
 
-Will create: < div class="sampleClass" id="sampleId">Sample text</div>"
+Will create: ```<div class="sampleClass" id="sampleId">Sample text</div>```
 
 Available properties
 =
