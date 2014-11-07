@@ -2,6 +2,7 @@ JF
 ==
 
 Javascript framework / library - all in one JS,HTML,STYLE.
+Version = 1.0.0
 
 Welcome to JF.js
 =
@@ -33,6 +34,19 @@ sample = {
 }
 
 Will create: < div class="sampleClass" id="sampleId">Sample text</div>"
+
+Available properties
+=
+(must have String) element 		Specifies the html node type
+(optional String) id			specifies id
+(optional String) class			specifies class
+(optional Object|String) data 		can hold objects, arrays strings for the specific html element
+(optional Object) style			object can contain style
+(optional String) inlineStyle		inline style for specific html element
+(optional Function) *custom*		function executed after html has loaded, to be able to us need to include "custom" name in object key
+(optional Function) on*			any on* native html function (examples: onclick,onload,onmouseover...)
+(optional String) name 			reserved word used for fillTemplate function to populate template with json input
+(optional String) text			text representation for html element
 
 Basic Usage
 =
