@@ -119,9 +119,9 @@ Advanced examples
 After execution will result in
 
 `< div id="about">
-<h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
-<h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
-<p>sampleText</p>
+< h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
+< h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
+< p>sampleText</p>
 </div>`
 
 Simple navigation example
@@ -192,10 +192,10 @@ Simple navigation example
 Will result in:
 
 `< div id="navigation">
-    <div class="div">
-        <button class="active">about</button>
-        <button class="">pictures</button>
-        <button class="">programming</button>
-        <button>contacts</button>
+    < div class="div">
+        < button class="active">about</button>
+        < button class="">pictures</button>
+        < button class="">programming</button>
+        < button>contacts</button>
     </div>
 </div>`
