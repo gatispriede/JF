@@ -60,11 +60,11 @@ Basic Usage
 
 Creator(document.body,sample)
 
-What it did?
+What it does?
 
-1. Appended to document.body Element the templates resulting HTML
-2. Create above template and stored the template in JF.templates array with following ID as a key.
-3. Created JF.templates.sampleId Object containing:
+1. Appends to document.body Element the templates resulting HTML
+2. Creates above template and stores the template in JF.templates array with following ID as a key.
+3. Creates JF.templates.sampleId Object containing:
     cssRules:       Array[]         linked rules if template has any, they are stored within JFstyle object
     elements:       Object          all create elements within template html
     funcArr:        Array[]         all custom functions
