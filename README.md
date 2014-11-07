@@ -37,6 +37,7 @@ Will create: < div class="sampleClass" id="sampleId">Sample text</div>"
 
 Available properties
 =
+```
 (must have String) element 		Specifies the html node type
 (optional String) id			specifies id
 (optional String) class			specifies class
@@ -47,6 +48,7 @@ Available properties
 (optional Function) on*			any on* native html function (examples: onclick,onload,onmouseover...)
 (optional String) name 			reserved word used for fillTemplate function to populate template with json input
 (optional String) text			text representation for html element
+```
 
 Basic Usage
 =
@@ -98,8 +100,8 @@ returns true / false
 
 Advanced examples
 =
-
-`sampleObject = {
+```
+sampleObject = {
   element: "div",
   id: "about",
   title: {
@@ -128,19 +130,20 @@ Advanced examples
   	element: "p",
         text: "sampleText"
   }
-}`
+}
+```
 
-After execution will result in
-
-`< div id="about">
-< h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
-< h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
-< p>sampleText</p>
-</div>`
-
+After execution html will result in
+```
+<div id="about">
+<h3 style="margin-left: 24.6463677775114%;">Hello I'm Gatis Priede</h3>
+<h2 style="margin-left: 7.23704490187348%;">Web crossplatform developer</h2>
+<p>sampleText</p>
+</div>
+```
 Simple navigation example
-
-`sampleNavigation = {
+```
+sampleNavigation = {
   element:'div',
   id:'navigation',
   style:{
@@ -201,15 +204,17 @@ Simple navigation example
       text:"contacts"
     }
   }
-}`
-
+}
+```
 Will result in:
 
-`< div id="navigation">
-    < div class="div">
-        < button class="active">about</button>
-        < button class="">pictures</button>
-        < button class="">programming</button>
-        < button>contacts</button>
+```
+<div id="navigation">
+    <div class="div">
+        <button class="active">about</button>
+        <button class="">pictures</button>
+        <button class="">programming</button>
+        <button>contacts</button>
     </div>
 </div>`
+```
