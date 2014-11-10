@@ -232,7 +232,7 @@ if (!Object.prototype.watch) {
             {
                 enumerable: false,
                 configurable: true,
-                writable: false,
+                writable: true,
                 value: function (prop, handler) {
                     var oldval = this[prop],
                             newval = oldval,
@@ -255,7 +255,7 @@ if (!Object.prototype.watch) {
 }
 if (!Object.prototype.unwatch) {// object.unwatch
     Object.defineProperty(Object.prototype, "unwatch", {
-        enumerable: false, configurable: true, writable: false, value: function (prop) {
+        enumerable: false, configurable: true, writable: true, value: function (prop) {
             var val = this[prop];
             delete this[prop]; // remove accessors
             this[prop] = val;
