@@ -500,8 +500,12 @@ var Creator = function () {
     var $parent = {};
     var $i = 0;
     var $append = false;
-    if (arguments[0] instanceof HTMLElement) {
+    if (arguments[0] instanceof HTMLElement ) {
         $parent = arguments[0];
+        $append = true;
+        $i = 1;
+    }else if(arguments[0][0] instanceof HTMLElement){
+        $parent = arguments[0][0];
         $append = true;
         $i = 1;
     }
@@ -660,7 +664,9 @@ Creator.element = function () {
         for (var $key in $object) {
             if (typeof $object[$key] === 'undefined' || typeof $object[$key] === null) {
                 continue;
+                
             }
+//            console.log($object[$key] === null,$object)
             this.class = $object[$key].class !== undefined ? $object[$key].class : '';
             if (typeof $object[$key] === 'string' || typeof $object[$key] === 'number' || typeof $object[$key] === 'function') {
                 switch ($key.toLowerCase()) {
