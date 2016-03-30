@@ -1,4 +1,5 @@
 {
-  "name": "JF-funisimo",
+  "name": "funisimo/JF",
+  "type": "funisimo-javascript",
   "description": "JF - light weight javascript framework"
 }
