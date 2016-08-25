@@ -1,0 +1,25 @@
+{
+  "name": "jf",
+  "version": "1.0.0",
+  "description": "javascript framework for dynamic loading",
+  "main": "JF.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gatispriede/JF.git"
+  },
+  "keywords": [
+    "jf",
+    "javascript",
+    "framework",
+    "library"
+  ],
+  "author": "Funisimo <1234gacha@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gatispriede/JF/issues"
+  },
+  "homepage": "https://github.com/gatispriede/JF#readme"
+}
