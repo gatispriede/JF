@@ -1,0 +1,42 @@
+{
+  "templates": {
+    "logoFile": "",
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "dateFormat": "ddd MMM Do YYYY",
+    "outputSourceFiles": true,
+    "outputSourcePath": true,
+    "systemName": "EV3",
+    "footer": "",
+    "copyright": "Performance Horizon Copyright © 2016",
+    "navType": "vertical",
+    "theme": "cosmo",
+    "linenums": true,
+    "collapseSymbols": true,
+    "inverseNav": true,
+    "protocol": "html://",
+    "methodHeadingReturns": false
+  },
+  "source": {
+    "include": [
+      "./src"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "encoding": "utf8",
+    "recurse": true,
+    "private": false,
+    "lenient": true,
+    "destination": "./docs",
+    "readme": "./README.md",
+    "template": "./node_modules/ink-docstrap/template",
+    "tutorials": "./tutorials"
+  },
+  "plugins": ["node_modules/jsdoc-babel", "plugins/markdown"],
+  "babel": {
+    "presets": ["es2015", "es2016", "react", "stage-0"],
+    "plugins": ["transform-es2015-destructuring", "transform-object-rest-spread"]
+  }
+}
