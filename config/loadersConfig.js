@@ -5,10 +5,8 @@
 			test: /\.jsx?$/,
 			// exclude: /node_modules/,
 			include: [
-				variables.get('paths.react.src'),
-				variables.get('paths.react.development'),
-				variables.get('paths.react.stilo'),
-				variables.get('paths.react.build')
+				variables.get('paths.app.src'),
+				variables.get('paths.app.build')
 			],
 			loader: 'babel-loader',
 			options: {

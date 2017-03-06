@@ -8,7 +8,7 @@
     "outputSourcePath": true,
     "systemName": "EV3",
     "footer": "",
-    "copyright": "Performance Horizon Copyright © 2016",
+    "copyright": "",
     "navType": "vertical",
     "theme": "cosmo",
     "linenums": true,

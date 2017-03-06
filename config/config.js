@@ -16,13 +16,18 @@ let configuration = {
         template: resolveApp('./template.html')
     },
     paths: {
-        react: {
-            src: resolveApp('../src'),
-            development: resolveApp('../development'),
-            node_modules: resolveApp('../node_modules'),
-            stilo: resolveApp('../node_modules/stilo'),
-            build: resolveApp('../build'),
-            styles: resolveApp('../styles'),
+		app: {
+			src: resolveApp('../app/src'),
+			node_modules: resolveApp('../node_modules'),
+			build: resolveApp('../build')
+		},
+		react: {
+			// src: resolveApp('../src'),
+			// development: resolveApp('../development'),
+			// node_modules: resolveApp('../node_modules'),
+			// stilo: resolveApp('../node_modules/stilo'),
+			// build: resolveApp('../build'),
+			// styles: resolveApp('../styles'),
         }
     },
     devServer: {
@@ -35,7 +40,7 @@ let configuration = {
         port: {
             doc: 'The port to bind.',
             format: 'port',
-            default: 8080,
+			default: 3000,
             env: 'PORT'
         }
     },

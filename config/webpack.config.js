@@ -2,29 +2,28 @@
 const webpack = require('webpack');
 const path = require('path');
 //webpack plugins
-const validate = require('webpack-validator');
+// const validate = require('webpack-validator');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
+// const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 //dev server configuration
 const devServerConfig = require('./devServerConfig.js');
 //loaders configuration
 const loadersConfig = require('./loadersConfig.js');
 const variables = require('./config.js');
-const packageJson = require('../package.json');
 
 // Ensure correct entry for app depending on environment
 let entries = {};
 if (variables.get('env') == 'development') {
-	entries['react-modules'] = variables.get('paths.react.development');
+	entries['app'] = variables.get('paths.app.src');
 } else {
-	entries['react-modules'] = variables.get('paths.react.src');
+	entries['app'] = variables.get('paths.app.src');
 }
 
 //helper function to determine if module is external to application
 function isExternal(module) {
-	var userRequest = module.userRequest;
+	const userRequest = module.userRequest;
 
 	if (typeof userRequest !== 'string' || userRequest.indexOf('node_modules\\stilo-toolbox') >= 0) {
 		return false;
@@ -39,14 +38,14 @@ let config = {
     resolve: {
         modules: [
             //allow webpack to parse react src and node_modules directories
-            variables.get('paths.react.src'),
-            variables.get('paths.react.node_modules')
+			variables.get('paths.app.src'),
+			variables.get('paths.app.node_modules')
         ]
 
     },
     entry: entries,
     output: {
-        path: variables.get('paths.react.build'),
+		path: variables.get('paths.app.build'),
         //creates build/bundle.js
         filename: '[name].js'
     },
@@ -63,14 +62,14 @@ let config = {
             }
         })
     ],
-    cache: true,
+	cache: false,
     target: 'web'
 };
 if (variables.get('env') == 'production') {
 	console.log('Production build!');
 	//manifest plugins for creating manifest.json content
 	config.plugins.push(new ManifestPlugin({
-		fileName: "/react-modules/manifest.json"
+		fileName: "/app/manifest.json"
 	}));
 	//extracts stats for the build process with full details
 	config.plugins.push(function () {
@@ -81,11 +80,11 @@ if (variables.get('env') == 'production') {
 		});
 	});
 	//hash definition, we don't use it in development
-	config.output.filename = '/react-modules/[name].[hash].js';
+	config.output.filename = '/app/[name].[hash].js';
 	config.plugins.push(new WebpackMd5Hash());
 	//chunk plugin creates bundle chunk
 	config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-		name: 'react-modules',
+		name: 'app',
 		minChunks: function(module, count) {
 			return !isExternal(module) && count >= 2; // adjustable cond
 		}
@@ -110,17 +109,15 @@ if (variables.get('env') == 'production') {
 } else {
 	//development config additions
 	config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-		name: 'react-modules',
+		name: 'app',
 		minChunks: Infinity
 	}));
-	config.resolve.modules.push(variables.get('paths.react.styles'));
 	config.plugins.push(new HtmlWebpackPlugin({
-		template: variables.get('html.template'),
-		filename: 'index.html',
+		template: path.resolve(__dirname, './template.html'),
 		inject: 'body'
 	}));
 	config.plugins.push(new webpack.HotModuleReplacementPlugin());
 	config.devServer = devServerConfig;
 }
-
+console.log(config.plugins);
 module.exports = config;
