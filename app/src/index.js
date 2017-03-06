@@ -1,3 +1,4 @@
+import {JF, Creator, JFstyle} from "jfjs";
 const home = {
 	element: "div",
 	id: "about",
@@ -28,5 +29,5 @@ const home = {
 		text: "sampleText"
 	}
 };
-console.log(window.Creator);
-window.Creator(document.body, home);
+console.log(Creator);
+Creator(document.body, home);

@@ -1,0 +1,25 @@
+{
+  "errors": [
+    "Entry module not found: Error: Can't resolve 'C:\\Users\\1234g\\Documents\\JF\\app' in 'C:\\Users\\1234g\\Documents\\JF'\nresolve 'C:\\Users\\1234g\\Documents\\JF\\app' in 'C:\\Users\\1234g\\Documents\\JF'\n  using description file: C:\\Users\\1234g\\Documents\\JF\\package.json (relative path: .)\n    Field 'browser' doesn't contain a valid alias configuration\n  after using description file: C:\\Users\\1234g\\Documents\\JF\\package.json (relative path: .)\n    using description file: C:\\Users\\1234g\\Documents\\JF\\package.json (relative path: ./app)\n      no extension\n        Field 'browser' doesn't contain a valid alias configuration\n        C:\\Users\\1234g\\Documents\\JF\\app is not a file\n      .js\n        Field 'browser' doesn't contain a valid alias configuration\n        C:\\Users\\1234g\\Documents\\JF\\app.js doesn't exist\n      .json\n        Field 'browser' doesn't contain a valid alias configuration\n        C:\\Users\\1234g\\Documents\\JF\\app.json doesn't exist\n      as directory\n        existing directory\n          using path: C:\\Users\\1234g\\Documents\\JF\\app\\index\n            using description file: C:\\Users\\1234g\\Documents\\JF\\package.json (relative path: ./app/index)\n              no extension\n                Field 'browser' doesn't contain a valid alias configuration\n                C:\\Users\\1234g\\Documents\\JF\\app\\index doesn't exist\n              .js\n                Field 'browser' doesn't contain a valid alias configuration\n                C:\\Users\\1234g\\Documents\\JF\\app\\index.js doesn't exist\n              .json\n                Field 'browser' doesn't contain a valid alias configuration\n                C:\\Users\\1234g\\Documents\\JF\\app\\index.json doesn't exist"
+  ],
+  "warnings": [],
+  "version": "2.2.1",
+  "hash": "97a1e0962d8ce99cfd7d",
+  "time": 51,
+  "publicPath": "",
+  "assetsByChunkName": {},
+  "assets": [
+    {
+      "name": "/app/manifest.json",
+      "size": 2,
+      "chunks": [],
+      "chunkNames": [],
+      "emitted": true
+    }
+  ],
+  "entrypoints": {},
+  "chunks": [],
+  "modules": [],
+  "filteredModules": 0,
+  "children": []
+}
