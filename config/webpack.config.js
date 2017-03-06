@@ -119,5 +119,4 @@ if (variables.get('env') == 'production') {
 	config.plugins.push(new webpack.HotModuleReplacementPlugin());
 	config.devServer = devServerConfig;
 }
-console.log(config.plugins);
 module.exports = config;

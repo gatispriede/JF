@@ -21,7 +21,9 @@
       "post-merge": ""
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "jfjs": "^1.0.0"
+  },
   "devDependencies": {
     "babel-core": "6.16.0",
     "babel-eslint": "7.0.0",
