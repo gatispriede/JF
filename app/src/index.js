@@ -1,4 +1,4 @@
-import {Creator, JFstyle} from "../../JF.js";
+import {Creator, JFstyle} from "jfjs";
 
 const home = {
 	element: 'div',

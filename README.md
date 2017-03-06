@@ -2,8 +2,11 @@ JF
 ==
 
 Javascript framework / library - all in one JS,HTML,STYLE.
+
+Installation
+=
 ```
-Version = 1.0.0
+npm i --save jfjs
 ```
 Welcome to JF.js
 =
