@@ -17,7 +17,7 @@ let configuration = {
     },
     paths: {
 		app: {
-			src: resolveApp('../app/src'),
+			src: resolveApp('../app'),
 			node_modules: resolveApp('../node_modules'),
 			build: resolveApp('../build')
 		},

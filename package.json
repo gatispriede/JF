@@ -2,14 +2,14 @@
   "name": "jfjs",
   "version": "1.0.1",
   "description": "javascript framework for dynamic loading",
-  "main": "JF.js",
+  "main": "app/src/JF.js",
   "scripts": {
     "pretest": "cross-env TEST=TEST NODE_PATH=./src mocha --require config/testHelper.js --require jsdom-global/register --require ignore-styles --compilers js:babel-core/register --recursive \"./src/**/*.spec.@(js|jsx)\"",
     "test": "cross-env TEST=TEST cross-env NODE_PATH=./src istanbul cover --dir logs/coverage/ node_modules/mocha/bin/_mocha -- --require config/testHelper.js --require jsdom-global/register --require ignore-styles --compilers js:babel-core/register --recursive \"./src/**/*.spec.@(js|jsx)\"",
     "build": "webpack --config ./config/webpack.config.js --colors --profile --progress -p",
-    "lint": "eslint src --ext .js --ext .jsx --cache -f html -o \"./logs/lintingResult.html\"",
-    "lintfixer": "eslint src --ext .js --ext .jsx --cache --fix",
-    "start": "webpack-dev-server --require babel-register --require ignore-styles --config ./config/webpack.config.js ./app/src/index.js -d",
+    "lint": "eslint app --ext .js --ext .jsx --cache -f html -o \"./logs/lintingResult.html\"",
+    "lintfixer": "eslint app --ext .js --ext .jsx --cache --fix",
+    "start": "webpack-dev-server --require babel-register --require ignore-styles --config ./config/webpack.config.js -d",
     "predocs": "bash ./findMarkdownDocs.sh",
     "docs": "rm -rf ./docs && jsdoc -c ./config/jsdoc/conf.json",
     "clean": "rm -rf ./docs && rm -rf ./logs && rm -rf ./build"

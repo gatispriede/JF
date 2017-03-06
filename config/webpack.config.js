@@ -25,7 +25,7 @@ if (variables.get('env') == 'development') {
 function isExternal(module) {
 	const userRequest = module.userRequest;
 
-	if (typeof userRequest !== 'string' || userRequest.indexOf('node_modules\\stilo-toolbox') >= 0) {
+	if (typeof userRequest !== 'string' || userRequest.indexOf('node_modules\\jfjs') >= 0) {
 		return false;
 	}
 
