@@ -1,6 +1,6 @@
 {
   "name": "jfjs",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "javascript framework for dynamic loading",
   "main": "JF.js",
   "scripts": {
