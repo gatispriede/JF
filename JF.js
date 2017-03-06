@@ -218,7 +218,7 @@ if (!Object.prototype.watch) {
 			configurable: true,
 			writable: true,
 			value: function (prop, handler) {
-				var oldval = this[prop],
+				let oldval = this[prop],
 					newval = oldval,
 					getter = function () {
 						return newval;
@@ -240,7 +240,7 @@ if (!Object.prototype.watch) {
 if (!Object.prototype.unwatch) {// object.unwatch
 	Object.defineProperty(Object.prototype, "unwatch", {
 		enumerable: false, configurable: true, writable: true, value: function (prop) {
-			var val = this[prop];
+			let val = this[prop];
 			this[prop] = undefined; // remove accessors
 			this[prop] = val;
 		}
@@ -258,8 +258,8 @@ Template.add = function () {
 	if (typeof arguments[0] === 'undefined') {
 		return false;
 	}
-	var $input = {};
-	var $i = 0;
+	let $input = {};
+	let $i = 0;
 	while (typeof $input === 'object') {
 		$input = arguments[$i];
 		arguments[0].appendChild(this);
@@ -277,7 +277,7 @@ Template.draggable = function (element, configuration) {
 		if (typeof element.configuration) {
 			if (element.configuration.container !== 'undefined') {
 				element.configuration.container.style.float = 'left';
-				var container = element.configuration.container.getBoundingClientRect();
+				let container = element.configuration.container.getBoundingClientRect();
 				element.container = {
 					left: parseInt(container.left),
 					top: parseInt(container.top),
@@ -287,7 +287,7 @@ Template.draggable = function (element, configuration) {
 					height: parseInt(container.height)
 				};
 			} else {
-				var container = window.getBoundingClientRect();
+				let container = window.getBoundingClientRect();
 				element.container = {
 					left: parseInt(container.left),
 					top: parseInt(container.top),
@@ -298,10 +298,10 @@ Template.draggable = function (element, configuration) {
 				};
 			}
 		}
-		var e = window.event || e;
+		let e = window.event || e;
 		element.style.position = 'relative';
 		element.style.float = 'left';
-		var elementDimensions = element.getBoundingClientRect();
+		let elementDimensions = element.getBoundingClientRect();
 		element.dragging = {
 			mouseX: e.clientX,
 			mouseY: e.clientY,
@@ -323,17 +323,17 @@ Template.draggable = function (element, configuration) {
 		dragTarget.removeEventListener('onmousmove');
 	}, true);
 
-	var dragTarget = element.setCapture ? element : window;
+	let dragTarget = element.setCapture ? element : window;
 
 	JF.events.addListener(dragTarget, "mousemove", function (e) {
 		if (!element.dragging)
 			return;
 
-		var e = window.event || e;
-		var top = e.clientY - element.container.top - (element.getBoundingClientRect().height / 2);
-		var left = e.clientX - element.container.left - (element.getBoundingClientRect().width / 2);
-		var right = left + element.dragging.width;
-		var bottom = top + element.dragging.height;
+		let e = window.event || e;
+		let top = e.clientY - element.container.top - (element.getBoundingClientRect().height / 2);
+		let left = e.clientX - element.container.left - (element.getBoundingClientRect().width / 2);
+		let right = left + element.dragging.width;
+		let bottom = top + element.dragging.height;
 
 		if (right >= element.container.width || left <= 0) {
 		} else {
@@ -350,15 +350,15 @@ Template.addDragging = function () {
 		console.log('wrong input');
 		return false;
 	}
-	var element = arguments[0];
+	let element = arguments[0];
 	if (typeof arguments[1] !== 'undefined') {
-		var props = arguments[1];
+		let props = arguments[1];
 	}
 	element.onmousedown = function (event) {
-		var src = event.srcElement;
-		var clone = src.cloneNode(true);
+		let src = event.srcElement;
+		let clone = src.cloneNode(true);
 		JF.templates.page.html.insertBefore(clone, JF.templates.page.html.firstChild);
-		var properties = {
+		let properties = {
 			container: JF.templates.page.html
 		};
 		Template.draggable(clone, properties);
@@ -395,7 +395,7 @@ Template.createEvents = function () {
 		});
 	} catch (error) {
 		arguments[0]['text'] = (function () {
-			var self = this;
+			let self = this;
 			if (typeof arguments[0] === 'string') {
 				self.childNodes[0].textContent = arguments[0];
 			} else if (typeof arguments[0] === 'object') {
@@ -407,7 +407,7 @@ Template.createEvents = function () {
 			}
 		})();
 		arguments[0]['class'] = (function () {
-			var self = this;
+			let self = this;
 			if (typeof arguments[0] === 'string') {
 				self.childNodes[0].textContent = arguments[0];
 			} else if (typeof arguments[0] === 'object') {
@@ -432,9 +432,9 @@ const Controller = function (controller, command, callback, save) {
 		JF.controllers[controller].listeners = [];
 	}
 	if (typeof callback !== 'function' && typeof command !== 'string' && typeof controller === 'string') {
-		var $return = 'Available commands: ';
-		var str = '';
-		for (var id in JF.controllers[controller]) {
+		let $return = 'Available commands: ';
+		let str = '';
+		for (let id in JF.controllers[controller]) {
 			if (typeof JF.controllers[controller][id] === 'object') {
 				str += id + ";";
 			}
@@ -452,7 +452,7 @@ const Controller = function (controller, command, callback, save) {
 			JF.controllers[controller][command] = [];
 		}
 		JF.controllers[controller][command].callback = callback;
-		for (var index in JF.controllers[controller].listeners) {
+		for (let index in JF.controllers[controller].listeners) {
 			if (JF.controllers[controller].listeners[index] === command) {
 				if (save === false) {
 					JF.controllers[controller].listeners.splice(index, 1);
@@ -480,9 +480,9 @@ const Creator = function () {
 	if (typeof arguments[0] === 'undefined') {
 		return false;
 	}
-	var $parent = {};
-	var $i = 0;
-	var $append = false;
+	let $parent = {};
+	let $i = 0;
+	let $append = false;
 	if (arguments[0] instanceof HTMLElement) {
 		$parent = arguments[0];
 		$append = true;
@@ -492,22 +492,22 @@ const Creator = function () {
 		$append = true;
 		$i = 1;
 	}
-	var $input = arguments[$i];
-	var $returnObject = [];
+	let $input = arguments[$i];
+	let $returnObject = [];
 	while ($input instanceof Object) {
 		if (arguments[$i].save === true && JF.templates[arguments[$i].id] !== undefined) {
 			$element = JF.templates[arguments[$i].id].html;
 			$returnObject.push(arguments[$i].id);
 		} else {
-			var $element = Creator.element(Creator.clone(arguments[$i]));
+			let $element = Creator.element(Creator.clone(arguments[$i]));
 			$returnObject.push($element.id);
 		}
 		if ($append) {
 			$parent.appendChild($element);
 			if (JF.templates[$element.id].funcArr !== undefined) {
-				for (var $id in JF.templates[$element.id].funcArr) {
-					var func = JF.templates[$element.id].funcArr[$id].func;
-					var element = JF.templates[$element.id].funcArr[$id].element;
+				for (let $id in JF.templates[$element.id].funcArr) {
+					let func = JF.templates[$element.id].funcArr[$id].func;
+					let element = JF.templates[$element.id].funcArr[$id].element;
 					if (typeof func === 'function') {
 						func(element);
 					}
@@ -534,15 +534,15 @@ Creator.clone = function () {
 
 	// Handle Date
 	if (arguments[0] instanceof Date) {
-		var copy = new Date();
+		let copy = new Date();
 		copy.setTime(arguments[0].getTime());
 		return copy;
 	}
 
 	// Handle Array
 	if (arguments[0] instanceof Array) {
-		var copy = [];
-		for (var i = 0, len = arguments[0].length; i < len; i++) {
+		let copy = [];
+		for (let i = 0, len = arguments[0].length; i < len; i++) {
 			copy[i] = Creator.clone(arguments[0][i]);
 		}
 		return copy;
@@ -550,8 +550,8 @@ Creator.clone = function () {
 
 	// Handle Object
 	if (arguments[0] instanceof Object) {
-		var copy = {};
-		for (var attr in arguments[0]) {
+		let copy = {};
+		for (let attr in arguments[0]) {
 			if (arguments[0].hasOwnProperty(attr)) {
 				copy[attr] = arguments[0][attr];
 			}
@@ -570,11 +570,11 @@ Creator.element = function () {
 	if (typeof arguments[0] !== 'object') {
 		return;
 	}
-	var $object = arguments[0];
-	var element;
-	var ruleName;
-	var $rule;
-	var $key;
+	let $object = arguments[0];
+	let element;
+	let ruleName;
+	let $rule;
+	let $key;
 	/*
 	 Define element, or parent element
 	 */
@@ -610,16 +610,16 @@ Creator.element = function () {
 			JF.templates[this.name].html !== undefined ? this.html.remove() : '';
 			JF.templates[this.name].cssRules = JF.templates[this.name].cssRules.reverse();
 			if (JF.templates[this.name].cssRules[0] !== undefined) {
-				for (var id in JF.templates[this.name].cssRules) {
+				for (let id in JF.templates[this.name].cssRules) {
 					JF.templates[this.name].cssRules[id].remove();
 				}
 			}
 			JF.templates[this.name] = undefined;
 		};
-		var doc = document.createDocumentFragment();
+		let doc = document.createDocumentFragment();
 		element = document.createElement($object.element);
 		doc.appendChild(element);
-		var $iteration = 0;
+		let $iteration = 0;
 		this.elementHerachy = " ";
 	} else {
 		element = document.createElement($object.element);
@@ -642,7 +642,7 @@ Creator.element = function () {
 	if (typeof $object === 'object') {
 		typeof $object.class !== 'undefined' ? this.class = $object.class : '';
 		typeof $object.id !== 'undefined' ? element.name = $object.id : '';
-		for (var $key in $object) {
+		for (let $key in $object) {
 			if (typeof $object[$key] === 'undefined' || typeof $object[$key] === null) {
 				continue;
 
@@ -659,13 +659,13 @@ Creator.element = function () {
 					case('inlinestyle'):
 						try {
 							if ($object[$key].search(';') > -1) {
-								var $styles = $object[$key].split(';');
-								for (var $style in $styles) {
-									var inlineRule = $styles[$style].replace(';', '').split(':');
+								let $styles = $object[$key].split(';');
+								for (let $style in $styles) {
+									let inlineRule = $styles[$style].replace(';', '').split(':');
 									element.style[inlineRule[0]] = inlineRule[1];
 								}
 							} else {
-								var inlineRule = $object[$key].replace(';', '').split(':');
+								let inlineRule = $object[$key].replace(';', '').split(':');
 								element.style[inlineRule[0]] = inlineRule[1];
 							}
 						} catch (error) {
@@ -718,7 +718,7 @@ Creator.element = function () {
 						$rule = '#' + this.id + ruleName + " { ";
 					}
 					$rule = $rule.replace('##', '#');
-					for (var rule in $object[$key]) {
+					for (let rule in $object[$key]) {
 						if (typeof $object[$key][rule] !== 'function') {
 							$rule += rule + ":" + $object[$key][rule] + ";";
 						}
@@ -727,7 +727,7 @@ Creator.element = function () {
 					$rule = $rule.replace(' . ', ' ');
 					this.cssRules += "........" + $rule;
 				} else if ($key.toLowerCase() === 'inlinestyle') {
-					for (var rule in $object[$key]) {
+					for (let rule in $object[$key]) {
 						if (typeof $object[$key][rule] !== 'function') {
 							try {
 								element.style[rule] = $object[$key][rule].replace(';', '');

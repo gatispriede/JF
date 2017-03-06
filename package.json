@@ -1,6 +1,6 @@
 {
   "name": "jfjs",
-  "version": "2.2.4",
+  "version": "1.0.1",
   "description": "javascript framework for dynamic loading",
   "main": "JF.js",
   "scripts": {
@@ -22,7 +22,7 @@
     }
   },
   "dependencies": {
-    "jfjs": "^1.0.0"
+    "jfjs": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "6.16.0",
