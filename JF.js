@@ -2,7 +2,7 @@
  * Copyright (C) 2014 Funisimo
  */
 /* global JF,JFstyle,JFcore*/
-var JF = function () {
+const JF = function () {
 };
 JF.debug = function () {
 	if (typeof arguments[0] !== 'undefined') {
@@ -34,12 +34,12 @@ const JFcore = {
 	createJF: function () {
 		JF.events = {};
 		JF.stringify = function () {
-			var $iteration = 0;
+			let $iteration = 0;
 			if (typeof arguments[1] !== 'undefined') {
 				$iteration = arguments[1] + 1;
 			}
-			var $result = '{';
-			for (var id in arguments[0]) {
+			let $result = '{';
+			for (let id in arguments[0]) {
 				switch (typeof arguments[0][id]) {
 					case('string'):
 						$result += '"' + id + '"' + ':' + '"' + arguments[0][id] + '",';
@@ -69,7 +69,6 @@ const JFcore = {
 				configurable: false,
 				value: arguments[2]
 			});
-			//			console.warn ( 'Add read-only property ' + arguments[1] );
 		};
 		JF.public = function () {
 			if (typeof arguments[0] === 'undefined' || typeof arguments[1] === 'undefined' || typeof arguments[2] === 'undefined') {
@@ -81,16 +80,15 @@ const JFcore = {
 				configurable: true,
 				value: arguments[2]
 			});
-			//			console.warn ( 'Add public property ' + arguments[1] );
 		};
 		JF.setStatus = function () {
-			status = arguments[2];
+			let status = arguments[2];
 		};
 		return true;
 	},
 	createGlobalFunctions: function () {
-		function Global() {
-			var object = arguments[0];
+		const Global = () => {
+			const object = arguments[0];
 			if (typeof object === 'undefined') {
 				return false;
 			} else if (typeof object === 'object' && typeof object.value !== 'undefined' && typeof object.name !== 'undefined') {
@@ -103,9 +101,9 @@ const JFcore = {
 					object.name.description = object.description;
 				}
 			}
-		}
+		};
 
-		var global = {
+		let global = {
 			name: 'log',
 			value: function () {
 				console.log(arguments);
@@ -115,7 +113,7 @@ const JFcore = {
 		global = {
 			name: 'clearTimeouts',
 			value: function () {
-				for (var i = 1; i < 1000; i++) {
+				for (let i = 1; i < 1000; i++) {
 					clearTimeout(i);
 				}
 			},
@@ -649,7 +647,6 @@ Creator.element = function () {
 				continue;
 
 			}
-//            console.log($object[$key] === null,$object)
 			this.class = $object[$key].class !== undefined ? $object[$key].class : '';
 			if (typeof $object[$key] === 'string' || typeof $object[$key] === 'number' || typeof $object[$key] === 'function') {
 				switch ($key.toLowerCase()) {
@@ -672,7 +669,7 @@ Creator.element = function () {
 								element.style[inlineRule[0]] = inlineRule[1];
 							}
 						} catch (error) {
-							console.log(error);
+							console.error(error);
 						}
 						break;
 					case('style'):
@@ -742,8 +739,8 @@ Creator.element = function () {
 				} else if ($key === 'data') {
 					element['data'] = Creator.clone($object[$key]);
 				} else {
-					var elementName = $key;
-					var subElement = Creator.element($object[$key], $object, $iteration);
+					let elementName = $key;
+					let subElement = Creator.element($object[$key], $object, $iteration);
 					element.appendChild(subElement);
 					JF.templates[this.id].elements[elementName] = subElement;
 					/*
@@ -768,10 +765,10 @@ Creator.element = function () {
 				}
 			} else {
 				if (this.cssRules !== "" && this.cssRules !== undefined) {
-					var split = this.cssRules.split("........");
+					let split = this.cssRules.split("........");
 					split[0] = undefined;
-					for (var rule in split) {
-						var item = split[rule];
+					for (let rule in split) {
+						let item = split[rule];
 						if (typeof item === 'string' && item !== undefined && item !== "" && item !== " ") {
 							JF.templates[this.id].cssRules.push(JFstyle.addStyle(item));
 						}
@@ -793,10 +790,10 @@ Creator.element = function () {
  * @param {type} $input
  * @returns {Creator.createTemplate.$return|Creator.createTemplate.value|$input.attributes.textContent} */
 Creator.createTemplate = function ($input) {
-	var $key, $attribute;
+	let $key, $attribute;
 	if (typeof arguments[1] === 'undefined') {
-		var $return = {};
-		var $iteration = 0;
+		let $return = {};
+		let $iteration = 0;
 	} else {
 		$iteration = arguments[1];
 	}
@@ -808,8 +805,8 @@ Creator.createTemplate = function ($input) {
 		$input.name !== undefined ? $return.name = $input.name : '';
 		for ($attribute in $input.attributes) {
 			if ($input.attributes.hasOwnProperty($attribute) && $attribute !== 'length') {
-				var name = $input.attributes[$attribute].nodeName;
-				var value = $input.attributes[$attribute].textContent;
+				let name = $input.attributes[$attribute].nodeName;
+				let value = $input.attributes[$attribute].textContent;
 				$return[name] = value;
 			}
 		}
@@ -832,12 +829,12 @@ Creator.createTemplate = function ($input) {
  * @param {type} $parent
  * @returns {$input.childNodes} */
 Creator.indexElements = function ($input, $parent) {
-	var $key;
+	let $key;
 	if ($parent === undefined) {
 		$parent = {};
 	}
 	if (arguments[2] === undefined) {
-		var $iteration = 0;
+		let $iteration = 0;
 	} else {
 		$iteration = arguments[2];
 	}
@@ -862,9 +859,9 @@ Creator.indexHtml = function () {
 	if (arguments[0] === 'undefined') {
 		return;
 	}
-	var $i = 0;
-	var $template = {};
-	var $input = arguments[$i];
+	let $i = 0;
+	let $template = {};
+	let $input = arguments[$i];
 	while ($input instanceof HTMLElement) {
 		$template = {
 			elements: Creator.indexElements($input),
@@ -891,16 +888,16 @@ Creator.fillTemplate = function () {
 		JF.debug('Creator.fillTemplate: Wrong input arguments', arguments);
 		return;
 	}
-	var self = this;
+	let self = this;
 	self.fillObject = function (base, input, parent) {
-		for (var id in input) {
+		for (let id in input) {
 			self.updateObject(base, input[id]);
 		}
-		var clone = base.cloneNode(true);
+		let clone = base.cloneNode(true);
 		parent.appendChild(clone);
 	};
 	self.updateObject = function (base, name, value) {
-		var self = this;
+		let self = this;
 		if (base.hasOwnProperty('name')) {
 			if (base.name === name) {
 				if (typeof value === 'string' || typeof value === 'number') {
@@ -910,7 +907,7 @@ Creator.fillTemplate = function () {
 				}
 			}
 		}
-		for (var key in base) {
+		for (let key in base) {
 			if (typeof base[key] === 'object') {
 				if (base[key].nodeType === undefined) {
 					self.updateObject(base[key], name, value);
@@ -923,12 +920,12 @@ Creator.fillTemplate = function () {
 		}
 	};
 	self.iterateOverrides = function (base, overrides) {
-		var id;
-		var self = this;
+		let id;
+		let self = this;
 		for (id in overrides) {
 			if (overrides.hasOwnProperty(id) && typeof overrides[id] !== 'function') {
-				var name = id;
-				var value = overrides[id];
+				let name = id;
+				let value = overrides[id];
 				if (base.hasOwnProperty('name')) {
 					if (base.name === name) {
 						if (typeof value === 'string' || typeof value === 'number') {
@@ -944,15 +941,15 @@ Creator.fillTemplate = function () {
 		}
 	};
 	self.convertToObject = function () {
-		var self = this;
+		let self = this;
 		try {
-			var overrides = JSON.parse(arguments[1]);
+			let overrides = JSON.parse(arguments[1]);
 			self.iterateOverrides(arguments[0], overrides);
 		} catch (error) {
 			console.warn(error);
 		}
 	};
-	var $mode = typeof arguments[1];
+	let $mode = typeof arguments[1];
 	$mode === 'string' ?
 		this.convertToObject(arguments[0], arguments[1])
 		: $mode === 'object' ?
@@ -968,36 +965,30 @@ Creator.init = function () {
 	/*
 	 INITIALIZATION
 	 */
-	var style = {
+	let style = {
 		id: 'style',
 		element: 'style',
 		defer: 'defer',
 		type: 'text/css'
 	};
 	Creator(style);
-	var head = document.getElementsByTagName('head')[0];
+	let head = document.getElementsByTagName('head')[0];
 //    head.insertBefore(JF.templates.templates.html,head.childNodes[0]);
 	head.insertBefore(JF.templates.style.html, head.childNodes[0]);
 	JF.templates.templates = undefined;
 }();
-//Creator.init();
 /*
  * Global style definition for easier style accessability within templates and also document
  */
-Object.defineProperty(this, 'JFstyle', {
-	enumerable: true,
-	configurable: false,
-	writable: true,
-	value: JF.templates.style.html.sheet
-});
+const JFstyle = JF.templates.style.html.sheet;
 JF.templates.style = undefined;
 /*
  * add style functionality used by templates
  */
 JFstyle.addStyle = function ($newRule) {
-	var place = JFstyle.rules.length;
+	let place = JFstyle.rules.length || null;
 	JFstyle.insertRule($newRule, place);
-	var obj = {
+	let obj = {
 		place: place,
 		rule: JFstyle.rules[place]
 	};
@@ -1096,14 +1087,14 @@ JF.createEvents = function () {
 	};
 };
 
-/*(JF.initEvents = function () {
- if (document.readyState === 'interactive') {
- var time = setTimeout(JF.initEvents, 100);
- } else {
- if (document.readyState === 'complete') {
- JF.createEvents();
- }
- }
- }());*/
+(JF.initEvents = function () {
+	if (document.readyState === 'interactive') {
+		let time = setTimeout(JF.initEvents, 100);
+	} else {
+		if (document.readyState === 'complete') {
+			JF.createEvents();
+		}
+	}
+}());
 
-export {JF, JFcore, JFstyle, Controller};
+export {JF, Creator, JFcore, JFstyle, Controller};

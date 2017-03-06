@@ -1,33 +1,66 @@
-import {JF, Creator, JFstyle} from "jfjs";
+import {Creator, JFstyle} from "../../JF.js";
+
 const home = {
-	element: "div",
-	id: "about",
-	title: {
-		element: "h3",
-		text: "Hello I'm Gatis Priede",
-		style: {
-			display: "inline-block"
-		},
-		custommargin: function (element) {
-			const pos = element.getBoundingClientRect().width / element.parentNode.getBoundingClientRect().width * 100 / 2;
-			element.style.marginLeft = 50 - pos + "%";
-		}
+	element: 'div',
+	id: 'navigation',
+	style: {
+		width: '100%',
+		'min-height': '50px'
 	},
-	description: {
-		element: "h2",
-		text: "Web crossplatform developer",
-		style: {
-			display: "inline-block"
+	buttons: {
+		customfunc: function (element) {
+			for (let id in element.children) {
+				let button = element.children[id];
+				if (button instanceof HTMLElement) {
+					button.onmouseover = function () {
+						this.classList.add('hover');
+					};
+					button.onmouseout = function () {
+						this.classList.remove('hover');
+					};
+					button.onclick = function () {
+						if (element.lastItem !== undefined) {
+							element.lastItem.remove('active');
+						}
+						this.classList.add('active');
+						element.lastItem = this.classList;
+					}
+				}
+			}
+			JFstyle.addStyle('.active { color: white; background: rgb(200, 200, 200);}');
+			JFstyle.addStyle('.hover { color: rgb(122, 122, 122); background: white;}');
 		},
-		custommargin: function (element) {
-			const pos = element.getBoundingClientRect().width / element.parentNode.getBoundingClientRect().width * 100 / 2;
-			element.style.marginLeft = 50 - pos + "%";
+		element: "div",
+		class: "div",
+		style: {
+			float: "left",
+			width: "100%"
+		},
+		home: {
+			element: "button",
+			text: "about",
+			style: {
+				border: "none",
+				width: "25%",
+				padding: "2px",
+				transition: "background ease 1s",
+				"border-radius": "1px",
+				"text-transform": "uppercase"
+			},
+		},
+		pictures: {
+			element: "button",
+			text: "pictures"
+		},
+		programmings: {
+			element: "button",
+			text: "programming"
+		},
+		contacts: {
+			element: "button",
+			text: "contacts"
 		}
-	},
-	info: {
-		element: "p",
-		text: "sampleText"
 	}
 };
-console.log(Creator);
+
 Creator(document.body, home);
