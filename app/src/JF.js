@@ -4,25 +4,6 @@
  *
  * @returns {Array|JF.$returnObject|Boolean} */
 import Template from "./Template";
-/*
- * Global style definition for easier style accessability within templates and also document
- */
-const addStyle = function ($newRule) {
-	let place = JF.style.rules !== undefined ? JF.style.rules.length : 0;
-	JF.style.insertRule($newRule, place);
-	let obj = {
-		place: place,
-		rule: JF.style.rules[place]
-	};
-	obj.remove = function () {
-		JF.style.removeRule(this.place);
-	};
-	if (typeof arguments[1] === 'string') {
-		JF.templates[arguments[1]].cssRules.push(obj);
-	}
-	return obj;
-};
-
 const JF = function () {
 	if (typeof arguments[0] === 'undefined') {
 		return false;
@@ -76,9 +57,6 @@ const JF = function () {
 		$input = arguments[$i];
 	}
 	return $returnObject;
-};
-JF.style = {
-	addStyle: addStyle
 };
 JF.templates = Template;
 /*
@@ -514,29 +492,6 @@ JF.fillTemplate = function () {
 			: console.warn('non defined input');
 };
 /*
- * Creator functionality initialization
- * needed to create style tag on page to be able to create css properties for templates
-
- * @returns {undefined} */
-JF.init = function () {
-	/*
-	 INITIALIZATION
-	 */
-	let style = {
-		id: 'style',
-		element: 'style',
-		defer: 'defer',
-		type: 'text/css'
-	};
-	JF(style);
-	let head = document.getElementsByTagName('head')[0];
-	if (JF.templates.style.html instanceof HTMLElement) {
-		head.insertBefore(JF.templates.style.html, head.childNodes[0]);
-	}
-	JF.templates.templates = undefined;
-	// JF.style = JF.templates.style.html.sheet;
-};
-/*
  * JF controller section
  * used to create comunication between template and page interractions to avoid custom / global functions
  * @returns {Array|JF.$returnObject|Boolean} */
@@ -581,5 +536,37 @@ JF.controller = function (controller, command, callback, save) {
 	}
 	return true;
 };
+
+const style = document.createElement('style');
+style.setAttribute('id', 'JF-style');
+style.setAttribute('defer', 'defer');
+style.setAttribute('type', 'text/css');
+
+let head = document.getElementsByTagName('head')[0];
+if (style instanceof HTMLElement) {
+	JF.style = head.insertBefore(style, head.childNodes[0]).sheet;
+}
+/*
+ INITIALIZATION
+ */
+JF.addStyle = ($newRule) => {
+	console.log([[JF.style]]);;;
+	let place = JF.style.rules.length;
+	JF.style.insertRule($newRule, place);
+	let obj = {
+		place: place,
+		rule: JF.style.rules[place] || {}
+	};
+	obj.remove = function () {
+		JF.style.removeRule(place);
+	};
+	console.log($newRule, place);;;
+	if (typeof arguments[1] === 'string') {
+		JF.templates[arguments[1]].cssRules.push(obj);
+	}
+	return obj;
+};
+;;
+
 
 export default JF;

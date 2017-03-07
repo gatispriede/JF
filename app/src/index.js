@@ -2,7 +2,6 @@
  * Copyright (C) 2014 Funisimo
  */
 import JF from "./JF";
-JF.style = {};
 JF.debug = function () {
 	if (typeof arguments[0] !== 'undefined') {
 		if (typeof JF.debug.items === 'undefined') {
