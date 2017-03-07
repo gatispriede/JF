@@ -109,6 +109,7 @@ JF.element = function () {
 	}
 	let $object = arguments[0];
 	let element, ruleName, $rule, $key, $iteration;
+	let doc = undefined;
 	/*
 	 Define element, or parent element
 	 */
@@ -145,7 +146,7 @@ JF.element = function () {
 			}
 			JF.templates[this.name] = undefined;
 		};
-		let doc = document.createDocumentFragment();
+		doc = document.createDocumentFragment();
 		element = document.createElement($object.element);
 		if (element instanceof HTMLElement) {
 			doc.appendChild(element);
@@ -303,7 +304,7 @@ JF.element = function () {
 					for (let rule in split) {
 						let item = split[rule];
 						if (typeof item === 'string' && item !== undefined && item !== "" && item !== " ") {
-							JF.templates[this.id].cssRules.push(JF.style.addStyle(item));
+							JF.templates[this.id].cssRules.push(JF.addStyle(item));
 						}
 					}
 				}
@@ -550,7 +551,6 @@ if (style instanceof HTMLElement) {
  INITIALIZATION
  */
 JF.addStyle = ($newRule) => {
-	console.log([[JF.style]]);;;
 	let place = JF.style.rules.length;
 	JF.style.insertRule($newRule, place);
 	let obj = {
@@ -560,13 +560,10 @@ JF.addStyle = ($newRule) => {
 	obj.remove = function () {
 		JF.style.removeRule(place);
 	};
-	console.log($newRule, place);;;
+	console.log($newRule, place);
 	if (typeof arguments[1] === 'string') {
 		JF.templates[arguments[1]].cssRules.push(obj);
 	}
 	return obj;
 };
-;;
-
-
 export default JF;

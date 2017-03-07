@@ -27,7 +27,7 @@ const home = {
 					};
 				}
 			}
-			console.log(JF.style);
+
 			JF.addStyle('.active { color: white; background: rgb(200, 200, 200);}');
 			JF.addStyle('.hover { color: rgb(122, 122, 122); background: white;}');
 		},
